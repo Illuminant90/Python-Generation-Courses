@@ -1,0 +1,51 @@
+from random import randint
+
+
+def start_game():
+    target_number = randint(1, 100)
+    print('Мы загадали число от одного до ста включительно, попробуйте его угадать')
+    count = 0
+    return target_number, count
+
+def is_valid(num):
+    if num.isdigit():
+        return int(num) in range(1, 101)
+    else:
+        return False
+
+
+def is_valid_answer(s):
+    if s.isalpha():
+        return s.lower() in ['yes', 'y', 'no', 'n', 'да', 'д', 'нет', 'н']
+    else:
+        return False
+    
+print('Добро пожаловать в числовую угадайку')    
+target_number, count = start_game()
+flag = 0
+while flag == 0:
+    print('Введите ваше число')
+    digit = input()
+    while is_valid(digit) == False:
+        print('А может быть все-таки введем целое число от 1 до 100?')
+        digit = input()
+    digit = int(digit)
+    if digit > target_number:
+        print('Ваше число больше загаданного, попробуйте еще разок')
+        count += 1
+    elif digit < target_number:
+        print('Ваше число меньше загаданного, попробуйте еще разок')
+        count += 1
+    elif digit == target_number:
+        count += 1
+        print(f'Вы угадали, поздравляем! Вам потребовалось {count} попыток.')
+        print('Хотите сыграть ещё раз? (Д/н)')
+        answer = input()
+        while is_valid_answer(answer) == False:
+            print('Я вас не понимаю, введите пожалуйста ответ в формате да или нет')
+            answer = input()
+        if answer.lower() in ['yes', 'y', 'да', 'д']:
+            target_number, count = start_game()
+        else:
+            flag = 1
+print('Спасибо, что играли в числовую угадайку. Еще увидимся...')
