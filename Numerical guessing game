@@ -64,13 +64,13 @@ def start_game():
         a, b = b, a
     target_digit = randint(a, b)
     count = 0
+    min_num_attempt = ceil(log(b - a + 1, 2))
     print('Выберете уровень сложности, где:')
     print('0 - без ограничений попыток')
-    print('1 - лёгкий')
-    print('2 - сложный')
-    print('3 - без права на ошибку')
+    print(f'1 - лёгкий ({min_num_attempt + 4} попыток)')
+    print(f'2 - сложный ({min_num_attempt + 2} попыток)')
+    print(f'3 - без права на ошибку ({min_num_attempt} попыток)')
     print('По умолчанию, без ограничения попыток')
-    min_num_attempt = ceil(log(b - a + 1, 2))
     difficulty = input()
     while is_difficulty_valid(difficulty) == False:
         print('Я вас не понимаю, выберите пожалуйста уровень сложности')
@@ -90,6 +90,7 @@ print('Добро пожаловать в числовую угадайку!')
 flag = 0
 while flag == 0:
     a, b, target_digit, count, max_num_attempt = start_game()
+    print(a, b, target_digit, count, max_num_attempt)
     while count < max_num_attempt:
         print('Введите ваше число')
         digit = input()
