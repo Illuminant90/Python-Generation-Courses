@@ -1,0 +1,105 @@
+from random import randint
+from math import log, ceil
+
+
+def end_game(win):
+    pass
+
+
+def is_difficulty_valid(dif):
+    if dif.lower() in ['0', '1', '2', '3', '', 'без ограничений попыток',
+                              'легкий', 'лёгкий', 'сложный',
+                               'без права на ошибку', 'no limit',
+                               'no limit on attempts', 'easy', 'hard',
+                                'no mistake']:
+        return True
+    else:
+        return False
+
+
+def can_convert_to_int(num):
+    try:
+        int(num)
+        return True
+    except ValueError:
+        return False
+
+
+def is_valid_digit(num, a, b):
+    try:
+        int(num)
+        return a <= int(num) <= b
+    except ValueError:
+        return False
+
+def is_valid_answer(s):
+    if s.isalpha():
+        return s.lower() in ['yes', 'y', 'no', 'n', 'да', 'д', 'нет', 'н']
+    else:
+        return False
+
+
+def start_game():
+    print('Я предлагаю сыграть в игру. Я загадаю случайное целое число от' \
+    ' a до b, а вы попробуете его угадать.')
+    print('Введите целое число a, по умолчанию это будет 1')
+    a = input()
+    if a == '':
+        a = 1
+    else:
+        while can_convert_to_int(a) == False:
+            print('Я вас не понимаю, введите пожалуйста целое число a')
+            a = input()
+        a = int(a)
+    print('Введите целое число b, по умолчанию это будет 100')
+    b = input()
+    if b == '':
+        b = 100
+    else:
+        while can_convert_to_int(b) == False:
+            print('Я вас не понимаю, введите пожалуйста целое число b')
+            b = input()
+        b = int(b)
+    if a > b:
+        a, b = b, a
+    target_digit = randint(a, b)
+    count = 0
+    print('Выберете уровень сложности, где:')
+    print('0 - без ограничений попыток')
+    print('1 - лёгкий')
+    print('2 - сложный')
+    print('3 - без права на ошибку')
+    print('По умолчанию, без ограничения попыток')
+    min_num_attempt = ceil(log(b - a + 1, 2))
+    difficulty = input()
+    while is_difficulty_valid(difficulty) == False:
+        print('Я вас не понимаю, выберите пожалуйста уровень сложности')
+        difficulty = input()
+    if difficulty.lower() in ['', '0', 'no limit', 'no limit on attempts']:
+        max_num_attempt = min_num_attempt * 1000
+    elif difficulty.lower() in ['1', 'легкий', 'лёгкий', 'easy']:
+        max_num_attempt = min_num_attempt + 4
+    elif difficulty.lower() in ['2', 'hard', 'сложный']:
+        max_num_attempt = min_num_attempt + 2
+    else:
+        max_num_attempt = min_num_attempt
+    return a, b, target_digit, count, max_num_attempt
+
+
+print('Добро пожаловать в числовую угадайку!')
+flag = 0
+while flag == 0:
+    a, b, target_digit, count, max_num_attempt = start_game()
+    while count < max_num_attempt:
+        print('Введите ваше число')
+        digit = input()
+        if digit.lower() in ['стоп', 'stop', 'конец', 'end', 'enough', 'хватит', 'достаточно']:
+            flag = 1
+            break
+        if digit.lower() in ['какое число', 'какое число?']:
+            print(f'Загаданное число было {target_digit}')
+            win = False
+            end_game(win)
+        while is_valid_digit(digit, a, b) == False:
+            print(f"А может быть все-таки введем целое число от {a} до {b}?")
+            digit = input()
