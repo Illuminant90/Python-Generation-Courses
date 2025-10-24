@@ -65,6 +65,8 @@ def start_game():
     target_digit = randint(a, b)
     count = 0
     min_num_attempt = ceil(log(b - a + 1, 2))
+    if min_num_attempt < 1:
+        min_num_attempt = 1
     print('Выберете уровень сложности, где:')
     print('0 - без ограничений попыток')
     print(f'1 - лёгкий ({min_num_attempt + 4} попыток)')
