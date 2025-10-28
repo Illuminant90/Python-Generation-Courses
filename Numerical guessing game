@@ -2,10 +2,6 @@ from random import randint
 from math import log, ceil
 
 
-def end_game(win):
-    pass
-
-
 def is_difficulty_valid(dif):
     if dif.lower() in ['0', '1', '2', '3', '', 'без ограничений попыток',
                               'легкий', 'лёгкий', 'сложный',
