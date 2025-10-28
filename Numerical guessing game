@@ -63,41 +63,43 @@ def start_game():
     if a > b:
         a, b = b, a
     target_digit = randint(a, b)
-    count = 0
-    min_num_attempt = ceil(log(b - a + 1, 2))
-    if min_num_attempt < 1:
-        min_num_attempt = 1
+    min_num_attempt = [0, 0, 0, 0]
+    min_num_attempt[3] = ceil(log(b - a + 1, 2))
+    if min_num_attempt[3] < 1:
+        min_num_attempt[3] = 1
+    for i in range(2, -1, -1):
+        min_num_attempt[i] = min_num_attempt[i + 1] + 2
+        if min_num_attempt[i] > b - a:
+            min_num_attempt[i] = b - a + 1
+    min_num_attempt[0] = min_num_attempt[0] * 100
     print('Выберете уровень сложности, где:')
     print('0 - без ограничений попыток')
-    print(f'1 - лёгкий ({min_num_attempt + 4} попыток)')
-    print(f'2 - сложный ({min_num_attempt + 2} попыток)')
-    print(f'3 - без права на ошибку ({min_num_attempt} попыток)')
+    print(f'1 - лёгкий ({min_num_attempt[1]} попыток)')
+    print(f'2 - сложный ({min_num_attempt[2]} попыток)')
+    print(f'3 - без права на ошибку ({min_num_attempt[3]} попыток)')
     print('По умолчанию, без ограничения попыток')
     difficulty = input()
     while is_difficulty_valid(difficulty) == False:
         print('Я вас не понимаю, выберите пожалуйста уровень сложности')
         difficulty = input()
     if difficulty.lower() in ['', '0', 'no limit', 'no limit on attempts']:
-        max_num_attempt = min_num_attempt * 1000
+        max_num_attempt = min_num_attempt[0]
     elif difficulty.lower() in ['1', 'легкий', 'лёгкий', 'easy']:
-        max_num_attempt = min_num_attempt + 4
+        max_num_attempt = min_num_attempt[1]
     elif difficulty.lower() in ['2', 'hard', 'сложный']:
-        max_num_attempt = min_num_attempt + 2
+        max_num_attempt = min_num_attempt[2]
     else:
-        max_num_attempt = min_num_attempt
-    return a, b, target_digit, count, max_num_attempt
+        max_num_attempt = min_num_attempt[3]
+    return a, b, target_digit, max_num_attempt
 
 
-print('Добро пожаловать в числовую угадайку!')
-flag = 0
-while flag == 0:
-    a, b, target_digit, count, max_num_attempt = start_game()
-    print(a, b, target_digit, count, max_num_attempt)
+def game(a, b, target_digit, max_num_attempt):
+    list_of_try = list()
     while count < max_num_attempt:
         print('Введите ваше число')
         digit = input()
         if digit.lower() in ['стоп', 'stop', 'конец', 'end', 'enough', 'хватит', 'достаточно']:
-            flag = 1
+            want_to_play = False
             break
         if digit.lower() in ['какое число', 'какое число?']:
             print(f'Загаданное число было {target_digit}')
@@ -106,3 +108,18 @@ while flag == 0:
         while is_valid_digit(digit, a, b) == False:
             print(f"А может быть все-таки введем целое число от {a} до {b}?")
             digit = input()
+
+
+def end_game():
+    pass
+
+
+print('Добро пожаловать в числовую угадайку!')
+rematch = False
+want_to_play = True
+while want_to_play:
+    if not rematch:
+        a, b, target_digit, count, max_num_attempt = start_game()
+    print(a, b, target_digit, count, max_num_attempt)
+    win, stop_game = game(a, b, target_digit, count, max_num_attempt)
+    want_to_play, rematch = end_game()       
