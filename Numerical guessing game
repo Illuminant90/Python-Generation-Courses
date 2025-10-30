@@ -28,6 +28,7 @@ def is_valid_digit(num, a, b):
     except ValueError:
         return False
 
+
 def is_valid_answer(s):
     if s.isalpha():
         return s.lower() in ['yes', 'y', 'no', 'n', 'да', 'д', 'нет', 'н']
@@ -43,7 +44,7 @@ def start_game():
     if a == '':
         a = 1
     else:
-        while can_convert_to_int(a) == False:
+        while not can_convert_to_int(a):
             print('Я вас не понимаю, введите пожалуйста целое число a')
             a = input()
         a = int(a)
@@ -52,7 +53,7 @@ def start_game():
     if b == '':
         b = 100
     else:
-        while can_convert_to_int(b) == False:
+        while not can_convert_to_int(b):
             print('Я вас не понимаю, введите пожалуйста целое число b')
             b = input()
         b = int(b)
@@ -75,7 +76,7 @@ def start_game():
     print(f'3 - без права на ошибку ({min_num_attempt[3]} попыток)')
     print('По умолчанию, без ограничения попыток')
     difficulty = input()
-    while is_difficulty_valid(difficulty) == False:
+    while not is_difficulty_valid(difficulty):
         print('Я вас не понимаю, выберите пожалуйста уровень сложности')
         difficulty = input()
     if difficulty.lower() in ['', '0', 'no limit', 'no limit on attempts']:
@@ -90,24 +91,90 @@ def start_game():
 
 
 def game(a, b, target_digit, max_num_attempt):
-    list_of_try = list()
+    stop_game = False
+    list_of_try = []
+    count = 0
     while count < max_num_attempt:
         print('Введите ваше число')
         digit = input()
-        if digit.lower() in ['стоп', 'stop', 'конец', 'end', 'enough', 'хватит', 'достаточно']:
-            want_to_play = False
+        if digit.lower() in ['стоп', 'stop', 'конец', 'end',\
+                              'enough', 'хватит', 'достаточно']:
+            stop_game = True
+            win = False
             break
         if digit.lower() in ['какое число', 'какое число?']:
             print(f'Загаданное число было {target_digit}')
             win = False
-            end_game(win)
-        while is_valid_digit(digit, a, b) == False:
+            break
+        while not is_valid_digit(digit, a, b):
             print(f"А может быть все-таки введем целое число от {a} до {b}?")
             digit = input()
-
-
-def end_game():
-    pass
+        while digit in list_of_try:
+            print(f'Вы уже вводили данное число, попробуйте ввести другое целое число в диапозоне от {a} до {b}')
+            digit = input()
+        if int(digit) > target_digit:
+            print('Ваше число больше загаданного, попробуйте еще разок')
+            list_of_try.append(digit)
+            count += 1
+        elif int(digit) < target_digit:
+            print('Ваше число меньше загаданного, попробуйте еще разок')
+            list_of_try.append(digit)
+            count += 1
+        else:
+            count += 1
+            win = True
+            break
+    else:
+        win = False
+    return count, win, stop_game
+            
+        
+def end_game(count, win, stop_game):
+    if stop_game:
+        want_to_play = False
+        rematch = False
+        return want_to_play, rematch
+    elif win:
+        print(f'Вы угадали, поздравляем! Вам потребовалось {count} попыток.')
+        print('Хотите сыграть ещё раз? (Д/н)')
+        answer = input()
+        while not is_valid_answer(answer):
+            print('Я вас не понимаю, введите пожалуйста ответ в формате да или нет')
+            answer = input()
+        if answer.lower() in ['yes', 'y', 'да', 'д']:
+            rematch = False
+            want_to_play = True
+            return want_to_play, rematch
+        else:
+            rematch = False
+            want_to_play = False
+            return want_to_play, rematch
+    else:
+        print('К сожалению вы не смогли угадать загаданное число.')
+        print('Хотите взять реванш? (Д/н)')
+        answer = input()
+        while not is_valid_answer(answer):
+            print('Я вас не понимаю, введите пожалуйста ответ в формате да или нет')
+            answer = input()
+        if answer.lower() in ['yes', 'y', 'да', 'д']:
+            rematch = True
+            want_to_play = True
+            return want_to_play, rematch
+        else:
+            print(f'Загаданное число было {target_digit}.')
+            print('Хотите сыграть ещё раз? (Д/н)')
+            answer = input()
+            while not is_valid_answer(answer):
+                print('Я вас не понимаю, введите пожалуйста ответ в формате да или нет')
+                answer = input()
+            if answer.lower() in ['yes', 'y', 'да', 'д']:
+                rematch = False
+                want_to_play = True
+                return want_to_play, rematch
+            else:
+                rematch = False
+                want_to_play = False
+                return want_to_play, rematch
 
 
 print('Добро пожаловать в числовую угадайку!')
@@ -115,7 +182,7 @@ rematch = False
 want_to_play = True
 while want_to_play:
     if not rematch:
-        a, b, target_digit, count, max_num_attempt = start_game()
-    print(a, b, target_digit, count, max_num_attempt)
-    win, stop_game = game(a, b, target_digit, count, max_num_attempt)
-    want_to_play, rematch = end_game()       
+        a, b, target_digit, max_num_attempt = start_game()
+    count, win, stop_game = game(a, b, target_digit, max_num_attempt)
+    want_to_play, rematch = end_game(count, win, stop_game) 
+print('Спасибо, что играли в числовую угадайку. Еще увидимся...')      
