@@ -8,11 +8,18 @@ def valid_user_name(name):
     return name.capitalize()
 
 
-def is_valid_answer(s):
-    if s.isalpha():
-        return s.lower() in ['yes', 'y', 'no', 'n', 'да', 'д', 'нет', 'н']
+def answer_no(s):
+    while s.lower() not in ['yes', 'y', 'no', 'n', 'да', 'д', 'нет', 'н']:
+        print('Я вас не понимаю, введите пожалуйста ответ в формате да или нет')
+        s = input()
+    if s.lower() in ['no', 'n', 'нет', 'н']:
+        return True
     else:
         return False
+
+
+def choice(answers):
+    return answers[randint(0, 19)]
 
 
 answers = ['Бесспорно', 'Предрешено', 'Никаких сомнений', 'Определённо да', 'Можешь быть уверен в этом',\
@@ -23,3 +30,13 @@ print('Привет Мир, я магический шар, и я знаю от�
 print('Как вас зовут? Введите своё имя.')
 user_name = valid_user_name(input())
 print(f'Привет, {user_name}!')
+want_to_continue = True
+while want_to_continue:
+    print('Задайте свой вопрос на который можно ответить да или нет.')
+    question = input().strip()
+    print(f'Ответ на вопрос "{question.capitalize()}"')
+    print(choice(answers))
+    print('Хотите задать ещё вопрос? (Д/н)')
+    if answer_no(input()):
+        want_to_continue = False
+print('Возвращайся, если возникнут вопросы!')
