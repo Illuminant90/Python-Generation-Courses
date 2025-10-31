@@ -1,0 +1,19 @@
+from random import randint
+
+
+def can_convert_to_int(num):
+    try:
+        int(num)
+        return True
+    except ValueError:
+        return False
+
+
+digits = '0123456789'
+lowercase_letters = 'abcdefghijklmnopqrstuvwxyz'
+uppercase_letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+punctuation = '!#$%&*+-=?@^_'
+
+chars = ''
+
+count = 
