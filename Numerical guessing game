@@ -37,7 +37,7 @@ def is_valid_answer(s):
 
 
 def start_game():
-    print('Я предлагаю сыграть в игру. Я загадаю случайное целое число от' \
+    print('Я предлагаю вам сыграть в игру. Я загадаю случайное целое число от' \
     ' a до b, а вы попробуете его угадать.')
     print('Введите целое число a, по умолчанию это будет 1')
     a = input()
@@ -59,6 +59,7 @@ def start_game():
         b = int(b)
     if a > b:
         a, b = b, a
+    print(f'Отлично играем в диапозоне от {a} до {b}')
     target_digit = randint(a, b)
     min_num_attempt = [0, 0, 0, 0]
     min_num_attempt[3] = ceil(log(b - a + 1, 2))
@@ -72,7 +73,7 @@ def start_game():
     print('Выберете уровень сложности, где:')
     print('0 - без ограничений попыток')
     print(f'1 - лёгкий ({min_num_attempt[1]} попыток)')
-    print(f'2 - сложный ({min_num_attempt[2]} попыток)')
+    print(f'2 - трудный ({min_num_attempt[2]} попыток)')
     print(f'3 - без права на ошибку ({min_num_attempt[3]} попыток)')
     print('По умолчанию, без ограничения попыток')
     difficulty = input()
@@ -81,12 +82,16 @@ def start_game():
         difficulty = input()
     if difficulty.lower() in ['', '0', 'no limit', 'no limit on attempts']:
         max_num_attempt = min_num_attempt[0]
+        print('Вы выбрали уровень сложности без ограничений попыток.')
     elif difficulty.lower() in ['1', 'легкий', 'лёгкий', 'easy']:
         max_num_attempt = min_num_attempt[1]
+        print(f'Вы выбрали лёгкий уровень сложности у вас {max_num_attempt} попыток угадать.')
     elif difficulty.lower() in ['2', 'hard', 'сложный']:
         max_num_attempt = min_num_attempt[2]
+        print(f'Вы выбрали трудный уровень сложности у вас {max_num_attempt} попыток угадать.')
     else:
         max_num_attempt = min_num_attempt[3]
+        print(f'Вы выбрали уровень сложности без права на ошибку у вас {max_num_attempt} попыток угадать.')
     return a, b, target_digit, max_num_attempt
 
 
@@ -110,16 +115,18 @@ def game(a, b, target_digit, max_num_attempt):
             print(f"А может быть все-таки введем целое число от {a} до {b}?")
             digit = input()
         while digit in list_of_try:
-            print(f'Вы уже вводили данное число, попробуйте ввести другое целое число в диапозоне от {a} до {b}')
+            print(f'Вы уже вводили данное число, попробуйте ввести другое целое число в диапазоне от {a} до {b}')
             digit = input()
         if int(digit) > target_digit:
             print('Ваше число больше загаданного, попробуйте еще разок')
             list_of_try.append(digit)
             count += 1
+            print(f'У осталось {max_num_attempt - count} попыток угадать')
         elif int(digit) < target_digit:
             print('Ваше число меньше загаданного, попробуйте еще разок')
             list_of_try.append(digit)
             count += 1
+            print(f'У осталось {max_num_attempt - count} попыток угадать')
         else:
             count += 1
             win = True
