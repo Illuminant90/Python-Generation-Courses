@@ -4,15 +4,30 @@ from random import randint
 def can_convert_to_int(num):
     correct_input = False
     while not correct_input:
-        try:
-            int(num)
+        if num.isdigit():
             correct_input = True
-        except ValueError:
-            print('Я вас не понимаю, введите пожалуйста целое число.')
+        else:
+            print('Я вас не понимаю, введите пожалуйста целое положительное число.')
             num = input()
     return int(num)
 
         
+def answer(s):
+    while s.lower() not in ['yes', 'y', 'no', 'n', 'да', 'д', 'нет', 'н']:
+        print('Я вас не понимаю, введите пожалуйста ответ в формате да или нет')
+        s = input()
+    if s.lower() in ['no', 'n', 'нет', 'н']:
+        return False
+    else:
+        return True
+
+
+def generate_password(len_pass_gererate, chars):
+    password = ''
+    for i in range(len_pass_gererate):
+        password += chars[randint(0, len(chars) - 1)]
+    return password
+    
 
 
 digits = '0123456789'
@@ -20,12 +35,42 @@ lowercase_letters = 'abcdefghijklmnopqrstuvwxyz'
 uppercase_letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 punctuation = '!#$%&*+-=?@^_'
 
-chars = ''
+abc = list()
 
 print('Добро пожаловать в генератор безопасных паролей!')
 print('Сколько вам нужно паролей для генерации?')
 count_pass_generate = can_convert_to_int(input())
 print('Введите желаемую длину пароля в символах.')
 len_pass_gererate = can_convert_to_int(input())
-
-print(count_pass_generate, len_pass_gererate)
+print('Желаете ли вы включить в пароль цифры? (Д/н)')
+need_digits = answer(input())
+if need_digits:
+    for i in range(len(digits)):
+        abc.append(digits[i])
+print('Желаете ли вы включить в пароль прописные (заглавные) буквы? (Д/н)')
+need_uppercase_letters = answer(input())
+if need_uppercase_letters:
+    for i in range(len(uppercase_letters)):
+        abc.append(uppercase_letters[i])
+print('Желаете ли вы включить в пароль строчные буквы? (Д/н)')
+need_lowercase_letters = answer(input())
+if need_lowercase_letters:
+    for i in range(len(lowercase_letters)):
+        abc.append(lowercase_letters[i])
+print('Желаете ли вы включить в пароль символы "!#$%&*+-=?@^_?"? (Д/н)')
+need_punctuation = answer(input())
+if need_punctuation:
+    for i in range(len(punctuation)):
+        abc.append(punctuation[i])
+print('Желаете ли вы исключить из пароля неоднозначные символы "il1Lo0O"? (Д/н)')
+need_ambiguous_characters = not answer(input())
+if not need_ambiguous_characters:
+    for i in 'il1Lo0O':
+        try:
+            abc.remove(i)
+        except ValueError:
+            pass
+chars = ''.join(abc)
+passwords = list()
+for i in range(count_pass_generate):
+    print(f'Пароль №{i + 1} - {generate_password(len_pass_gererate, chars)}')
