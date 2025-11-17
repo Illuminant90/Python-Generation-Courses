@@ -18,12 +18,13 @@ def is_russian(s):
     while s.lower() not in rus and s.lower() not in eng:
         print('Я вас не понимаю, введите язык, на котором написано ваше сообщение. (Рус/Англ)')
         s = input()
-    if s.lower in rus:
+    if s.lower() in rus:
         print('Программа будет работать с русским текстом. Обращаю внимания, что буква "ё" не обрабатывается')
         return True
     else:
         print('Программа будет работать с английским текстом.')
         return False
+
 
 def can_convert_to_int(num):
     correct_input = False
@@ -33,7 +34,9 @@ def can_convert_to_int(num):
         else:
             print('Я вас не понимаю, введите пожалуйста целое положительное число.')
             num = input()
+    print(f'Шаг сдвига вправо {num}')
     return int(num)
+
 
 print('Добро пожаловать в программу, осуществляющую шифрование/дешифрование '
       'текста шифром Цезаря.')
@@ -41,9 +44,7 @@ print('Вы хотите зашифировать или дешифровать 
 encryption = is_encryption(input())
 print('Выберете язык на котором написано ваше сообщение. (Рус/Англ)')
 language = is_russian(input())
-print(language)
 print('Введите желаемый шаг сдвига вправо.')
 shift_step = can_convert_to_int(input())
-print(encryption, language, shift_step)
 print('Введите сообщение, которое необходимо шифровать/дешифровать.')
 message = input()
