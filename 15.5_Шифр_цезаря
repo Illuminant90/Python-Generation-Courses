@@ -38,6 +38,34 @@ def can_convert_to_int(num):
     return int(num)
 
 
+def caesar_encryption(encryption, language, shift_step, message):
+    capital_letters = ''
+    lowercase_letters = ''
+    converted_message = ''
+    if language:
+        len_abc = 32
+        for i in range(len_abc):
+            capital_letters += chr(ord('А') + i)
+            lowercase_letters += chr(ord('а') + i)
+    else:
+        len_abc = 26
+        for i in range(len_abc):
+            capital_letters += chr(ord('A') + i)
+            lowercase_letters += chr(ord('a') + i)        
+    if not encryption:
+        shift_step = -shift_step
+    for letter in message:
+        if letter in capital_letters:
+            converted_letter = capital_letters[(capital_letters.find(letter) + shift_step) % len_abc]
+            converted_message += converted_letter
+        elif letter in lowercase_letters:
+            converted_letter = lowercase_letters[(lowercase_letters.find(letter) + shift_step) % len_abc]
+            converted_message += converted_letter
+        else:
+            converted_message += letter
+    return converted_message
+
+
 print('Добро пожаловать в программу, осуществляющую шифрование/дешифрование '
       'текста шифром Цезаря.')
 print('Вы хотите зашифировать или дешифровать текст? (Ш/д)')
@@ -48,3 +76,4 @@ print('Введите желаемый шаг сдвига вправо.')
 shift_step = can_convert_to_int(input())
 print('Введите сообщение, которое необходимо шифровать/дешифровать.')
 message = input()
+print(caesar_encryption(encryption, language, shift_step, message))
