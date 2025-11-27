@@ -1,0 +1,66 @@
+def convert_binary_to_decimal(number):
+    converted_number = 0
+    degree_indicator = 0
+    for i in range(-1, -len(number) - 1, -1):
+        converted_number += int(number[i]) * (2 ** degree_indicator)
+        degree_indicator += 1
+    return converted_number
+
+
+def convert_hexadecimal_to_decimal(number):
+    converted_number = 0
+    degree_indicator = 0
+    digits = [str(i) for i in range(10)]
+    for i in range(6):
+        digits.append(chr(ord('A') + i))
+    for i in range(-1, -len(number) - 1, -1):
+        converted_number += digits.index(number[i]) * 16 ** degree_indicator
+        degree_indicator += 1
+    return converted_number
+
+
+def convert_decimal_to_any_number_system(number, new_foundation):
+    pass    
+
+
+def can_convert_to_int(num):
+    correct_input = False
+    while not correct_input:
+        if num.isdigit():
+            correct_input = True
+        else:
+            print('Я вас не понимаю, введите пожалуйста целое положительное число.')
+            num = input()
+    print(f'Основание новой системы счисления {num}')
+    return int(num)
+
+
+def garden_promlem():
+    n = 1
+    trees = 8 * n ** 1 + 8 * n **0
+    apples = 3 * n ** 1 + 2 * n ** 0
+    pears = 2 * n ** 1 + 2 * n ** 0
+    plum = 1 * n ** 1 + 6 * n ** 0
+    cherry = 1 * n ** 1 + 7 * n ** 0
+    equation = (trees == apples + pears + plum + cherry)
+    while not equation:
+        n += 1
+        trees = 8 * n ** 1 + 8 * n **0
+        apples = 3 * n ** 1 + 2 * n ** 0
+        pears = 2 * n ** 1 + 2 * n ** 0
+        plum = 1 * n ** 1 + 6 * n ** 0
+        cherry = 1 * n ** 1 + 7 * n ** 0
+        equation = (trees == apples + pears + plum + cherry)
+    else:
+        return n
+
+
+#print(convert_binary_to_decimal(number))
+#print(convert_hexadecimal_to_decimal(number))
+#print(garden_promlem())
+print('Введите десятичное число, которое хотите конвертировать')
+number = input()
+print('Введите основание новой системы счисления')
+new_foundation = can_convert_to_int(input())
+new_number = convert_decimal_to_any_number_system(number, new_foundation)
+print(f'Число в системе счисления с основанием {new_foundation} - {new_number}')
