@@ -1,0 +1,6 @@
+for i in range(10, 100):
+    digit_1 = (i % 100) // 10
+    digit_2 = i % 10
+    equation = digit_1 + digit_2 + (digit_1 * digit_2) == i
+    if equation:
+        print(i)
