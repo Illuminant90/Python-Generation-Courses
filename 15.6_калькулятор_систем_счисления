@@ -20,7 +20,20 @@ def convert_hexadecimal_to_decimal(number):
 
 
 def convert_decimal_to_any_number_system(number, new_foundation):
-    pass    
+    new_number = list()
+    digits = list()
+    for i in range(new_foundation):
+        if i < 10:
+            digits.append(str(i))
+        else:
+            digits.append(chr(55 + i))
+    while number > new_foundation - 1:
+        new_number.append(digits[number % new_foundation])
+        number = number // new_foundation
+    else:
+        new_number.append(digits[number])
+    new_number = new_number[::-1]
+    return ''.join(new_number)
 
 
 def can_convert_to_int(num):
@@ -31,7 +44,6 @@ def can_convert_to_int(num):
         else:
             print('Я вас не понимаю, введите пожалуйста целое положительное число.')
             num = input()
-    print(f'Основание новой системы счисления {num}')
     return int(num)
 
 
@@ -59,8 +71,10 @@ def garden_promlem():
 #print(convert_hexadecimal_to_decimal(number))
 #print(garden_promlem())
 print('Введите десятичное число, которое хотите конвертировать')
-number = input()
+number = can_convert_to_int(input())
+print(f'Введенное число {number}')
 print('Введите основание новой системы счисления')
 new_foundation = can_convert_to_int(input())
+print(f'Основание новой системы счисления {new_foundation}')
 new_number = convert_decimal_to_any_number_system(number, new_foundation)
-print(f'Число в системе счисления с основанием {new_foundation} - {new_number}')
+print(f'Число {number} в системе счисления с основанием {new_foundation} - {new_number}')
