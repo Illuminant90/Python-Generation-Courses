@@ -17,10 +17,56 @@ def crack_pincode(pin):
     count = 1
     for i in keys:
         count *= len(i)
-    output = ['' for _ in range(count)]
+    #output = ['' for _ in range(count)]
+    output = list()
     if len(keys) == 1:
-        return keys[0]        
-    elif len(keys) > 1:
+        return keys[0]
+    elif len(keys) == 2:
+        for i in range(len(keys[0])):
+            for j in range(len(keys[1])):
+                output.append(keys[0][i] + keys[1][j])
+        return output
+    elif len(keys) == 3:
+        for i in keys[0]:
+            for j in keys[1]:
+                for k in keys[2]:
+                    output.append(i + j + k)
+        return output
+    elif len(keys) == 4:
+        for i in keys[0]:
+            for j in keys[1]:
+                for k in keys[2]:
+                    for l in keys[3]:
+                        output.append(i + j + k + l)
+        return output
+    elif len(keys) == 5:
+        for i in keys[0]:
+            for j in keys[1]:
+                for k in keys[2]:
+                    for l in keys[3]:
+                        for m in keys[4]:
+                            output.append(i + j + k + l + m)
+        return output
+    elif len(keys) == 6:
+        for i in keys[0]:
+            for j in keys[1]:
+                for k in keys[2]:
+                    for l in keys[3]:
+                        for m in keys[4]:
+                            for n in keys[5]:
+                                output.append(i + j + k + l + m + n)
+        return output
+    elif len(keys) == 7:
+        for i in keys[0]:
+            for j in keys[1]:
+                for k in keys[2]:
+                    for l in keys[3]:
+                        for m in keys[4]:
+                            for n in keys[5]:
+                                for o in keys[6]:
+                                    output.append(i + j + k + l + m + n + o)
+        return output
+    elif len(keys) > 7:
         for i in range(len(keys)):
             key = keys[i]
             print(key)
@@ -32,4 +78,4 @@ def crack_pincode(pin):
         return print('Ошибка данных')
 
 
-print(crack_pincode('46'))
+print(crack_pincode('0000000'))
