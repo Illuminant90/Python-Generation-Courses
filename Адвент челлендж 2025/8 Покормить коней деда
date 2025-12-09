@@ -1,0 +1,17 @@
+
+
+apple = 1.0
+december = apple / 2 + 1
+january = (apple - december) / 2 + 2
+february = (apple - december - january) / 2 + 3
+solve = apple == december + january + february
+while (not solve) and apple < 100:
+    apple += 1
+    december = apple / 2 + 1
+    january = (apple - december) / 2 + 2
+    february = (apple - december - january) / 2 + 3
+    solve = apple == december + january + february
+    if int(december) == december and int(january) == january and int(february) == february:
+        print(f'Яблок {apple}, сумма {december + january + february} декабрь {december}, январь {january}, февраль {february}')
+else:
+    print(f'Яблок {apple}, декабрь {december}, январь {january}, февраль {february}')
