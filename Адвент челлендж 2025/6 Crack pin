@@ -1,0 +1,35 @@
+def crack_pincode(pin):
+    k1 = ['1', '2', '4']
+    k2 = ['2', '3', '5', '1']
+    k3 = ['3', '6', '2']
+    k4 = ['4', '5', '7', '1']
+    k5 = ['5', '6', '8', '4', '2']
+    k6 = ['6', '9', '5', '3']
+    k7 = ['7', '8', '4']
+    k8 = ['8', '9', '0', '7', '5']
+    k9 = ['9', '8', '6']
+    k0 = ['0', '8']
+    keyboard = [k0, k1, k2, k3, k4, k5, k6, k7, k8, k9]
+    keys = list()
+    for k in pin:
+        k = int(k)
+        keys.append(keyboard[k])
+    count = 1
+    for i in keys:
+        count *= len(i)
+    output = ['' for _ in range(count)]
+    if len(keys) == 1:
+        return keys[0]        
+    elif len(keys) > 1:
+        for i in range(len(keys)):
+            key = keys[i]
+            print(key)
+            for j in range(len(output)):
+                print(j, j % len(key), key[j % len(key)])
+                output[j] += key[j % len(key)]   
+        return output             
+    else:
+        return print('Ошибка данных')
+
+
+print(crack_pincode('46'))
