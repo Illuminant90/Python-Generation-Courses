@@ -1,0 +1,16 @@
+word = input() + ' запретил букву'
+line = [letter for letter in word]
+abc = list()
+for letter in word:
+    if letter not in abc and letter.isalpha():
+        abc.append(letter)
+abc.sort()
+for letter in abc:
+    print(''.join(line).strip() + ' ' + letter)
+    while letter in line:
+        line.remove(letter)
+    count = 0
+    while count < len(line) - 1:
+        if line[count] == ' ' and line[count + 1] == ' ':
+            line.pop(count)
+        count += 1
