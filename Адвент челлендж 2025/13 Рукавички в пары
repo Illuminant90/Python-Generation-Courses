@@ -1,0 +1,21 @@
+def split(line):
+    count = 0
+    cursor = 0
+    result = list()
+    open_bracket = ['(', '[']
+    close_bracket = [')', ']']
+    for i in range(len(line)):
+        if line[i] in open_bracket:
+            count += 1
+        elif line[i] in close_bracket:
+            count -= 1
+        if count == 0:
+            if i + 1 > len(line):
+                result.append(line[cursor:])
+            else:
+                result.append(line[cursor:i + 1])
+            cursor = i + 1
+    return result
+
+
+print(split(input()))

@@ -1,0 +1,30 @@
+def copy_paste(s):
+    words = s.split()
+    copied_text = ''
+    result = []
+    i = 0
+
+    while i < len(words):
+        word = words[i]
+        # Проверяем, является ли слово частью сочетания Ctrl + C или Ctrl + V
+        if word == 'Ctrl' and i + 2 < len(words) and words[i+1] == '+' and words[i+2] == 'C':
+            # Обработка Ctrl + C
+            # копируем все слова перед этим сочетанием
+            copied_text = ' '.join(result)
+            i += 3  # пропускаем 'Ctrl', '+', 'C'
+        elif word == 'Ctrl' and i + 2 < len(words) and words[i+1] == '+' and words[i+2] == 'V':
+            # Обработка Ctrl + V
+            # вставляем скопированный текст, если он есть
+            if copied_text:
+                # Разделяем скопированный текст на слова и добавляем их с пробелом
+                result.extend(copied_text.split())
+            i += 3  # пропускаем 'Ctrl', '+', 'V'
+        else:
+            # Просто добавляем слово в результат
+            result.append(word)
+            i += 1
+    # Возвращаем полученную строку
+    return ' '.join(result)
+
+
+print(copy_paste(input()))
