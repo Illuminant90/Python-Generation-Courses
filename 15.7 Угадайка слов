@@ -1,5 +1,52 @@
 from random import randint
 
+
+def answer(s):
+   while s.lower() not in ['yes', 'y', 'no', 'n', 'да', 'д', 'нет', 'н']:
+      print('Я вас не понимаю, введите пожалуйста ответ в формате да или нет')
+      s = input()
+   if s.lower() in ['no', 'n', 'нет', 'н']:
+      return False
+   else:
+      return True
+
+
+def is_valid_letter(s, guessed_letters, guessed_words): #Проверяем, является ли введенный символ или слово уникальными
+   abc = [chr(letter) for letter in range(ord('А'), (ord('А') + 32))]
+   abc.append('Ё')
+   flags = [False for i in range(4)]
+   while False in flags:
+      flags = [False, False, False, False]
+      if s.isalpha():
+         flags[0] = True
+      else:
+         print('Я вас не понимаю. Введите букву или слово целиком.')
+         s = input()
+         continue
+      if flags[0] and s.upper() not in guessed_letters:
+         flags[1] = True
+      else:
+         print('Вы уже вводили такую букву. Введите букву или слово целиком.')
+         s = input()
+         continue
+      if flags[0] and flags[1] and s.upper() not in guessed_words:
+         flags[2] = True
+      else:
+         print('Вы уже вводили такое слово. Введите букву или слово целиком.')
+         s = input()
+         continue 
+      if flags[0] and flags[1] and flags[2]:
+         for letter in s.upper():
+            if letter not in abc:
+               print('В игре учавствуют только символы на русском языке. Введите букву или слово целиком.')
+               s = input()
+               break
+         else:
+            flags[3] = True
+   s = s.upper()
+   return s
+
+
 def get_word(word_list):
     random_word_number = randint(0, len(word_list) - 1)
     return word_list[random_word_number]
@@ -81,15 +128,50 @@ def display_hangman(tries):
 
 
 def play(word):
-    word_completion = '_' * len(word)  # строка, содержащая символы _ на каждую букву задуманного слова
-    guessed = False                    # сигнальная метка
-    guessed_letters = []               # список уже названных букв
-    guessed_words = []                 # список уже названных слов
-    tries = 6                          # количество попыток
-    print('Давайте играть в угадайку слов!')
-    display_hangman(tries)
+   word_completion = ['_' for i in range(len(word))]  # строка, содержащая символы _ на каждую букву задуманного слова
+   guessed = False                    # сигнальная метка
+   guessed_letters = []               # список уже названных букв
+   guessed_words = []                 # список уже названных слов
+   tries = 6                          # количество попыток
+   print('Давайте играть в угадайку слов!')
+   print(display_hangman(tries))
+   while tries > 0:
+      print('Я загадал слово:', *word_completion)
+      print('Введите букву или слово целиком')
+      letter = is_valid_letter(input(), guessed_letters, guessed_words)
+      if len(letter) > 1:
+         guessed_words.append(letter)
+         if letter == word:
+            print('Поздравляем, вы угадали слово! Вы победили! Хотите сыграть ещё раз? (Д/н)')
+            return answer(input())
+         else:
+            print(f'{letter} не загаданное слово')
+            tries -= 1
+            print(display_hangman(tries))
+      else:
+         guessed_letters.append(letter)
+         if letter in word:
+            for i in range(len(word)):
+               if letter == word[i]:
+                  word_completion[i] = letter
+         else:
+            print(f'К сожалению буквы {letter} нет в слове')
+            tries -= 1
+            print(display_hangman(tries))
+      if '_' not in word_completion:
+         print(f'Поздравляю вы угадали слово: {word}! Вы победили! Хотите сыграть ещё раз? (Д/н)')
+         return answer(input())
+   else:
+      print(f'К сожалению вам не удалось угадать слово {word}.')
+      print('Вы проиграли.Хотите сыграть ещё раз? (Д/н)')
+      return answer(input())
 
 
+print('''Добро пожаловать в угадайку слов!
+Я загадаю слово, а у вас будет 6 попыток его угадать.
+Каждый раз, когда вы угадываете букву, я буду показывать её положение в слове.
+Так же в любой момент вы можете попробовать угадать слово целиком!
+Играем только на русском языке. Удачи!''')
 word_list = ['КЛЮЧ', 'КНИГА', 'ЕНОТ', 'МАШИНКА', 'КОРОВА', 'ТЕЛЕЖКА', 'ШЛЕМ', 'КНОПКА', 'ШНУР', 'ЧЕРНЫЙ', 
 'ВЛАСТЕЛИН', 'СКАЙП', 'ДУБ', 'ЧАСЫ', 'ТРУБА', 'ЕЛКА', 'ИНСТИТУТ', 'КОРОБКА', 'ТАБЛИЧКА', 'ВОДА', 'СКОВОРОДА', 
 'МНОГОНОЖКА', 'ЕВРЕЙ', 'ТЕРМИТ', 'КАЧЕК', 'РУЛОН', 'МАГНИТОФОН', 'НОГА', 'СЛОН', 'МИКРОВОЛНОВКА', 'ТОРТ', 'МАК', 
@@ -99,5 +181,8 @@ word_list = ['КЛЮЧ', 'КНИГА', 'ЕНОТ', 'МАШИНКА', 'КОРОВ
 'РАКЕТА', 'МОРКОВКА', 'ЗЕРКАЛО', 'МОЛОТ', 'ВОЗДУХ', 'ЗМЕЙ', 'ЁЖ', 'ПАЛЬМА', 'МАСЛО', 'ДИДЖЕЙ', 'МЕШОК', 'ТЮБИК', 
 'МОЗГ', 'ПОЕЗД', 'РОЗЕТКА', 'ПАРАШЮТИСТ', 'БЕЛКА', 'ШПРОТЫ', 'САМОСВАЛ', 'ПАЗЛ', 'БУТЫЛКА', 'КРЕМЛЬ', 'ПИЦЦА', 
 'МАКАРОНЫ', 'КОВЕР', 'ЗУБЫ', 'ЯРЛЫК', 'КАШАЛОТ', 'МАРС', 'ШАКАЛ', 'ПОМАДА', 'ДЖИП', 'ЛЕЩ', 'КАМЕНЬ', 'ДИСК']
-word = get_word(word_list)
-play(word)
+want_to_play = True
+while want_to_play:
+   word = get_word(word_list)
+   want_to_play = play(word)
+print('Спасибо за игру! Приходите ещё!')
