@@ -1,0 +1,15 @@
+points = [1, 5, 10, 15, 20]
+powers = [35, 130, 170, 240, 300]
+target_point = 44
+power = powers[-1] * 44
+for a in range(4):
+    for b in range(4):
+        for c in range(9):
+            for d in range(6):
+                for e in range(46):
+                    current_power = powers[0] * e + powers[1] * d + powers[2] * c + powers[3] * b + powers[4] * a
+                    current_points = points[0] * e + points[1] * d + points[2] * c + points[3] * b + points[4] * a
+                    if current_points >= target_point and current_power < power:
+                        power = current_power
+                        print(f'Текущий рекорд {power}')
+                        print(f'При количестве точек: {points[0]} - {e}, {points[1]} - {d}, {points[2]} - {c}, {points[3]} - {b}, {points[4]} - {a}')

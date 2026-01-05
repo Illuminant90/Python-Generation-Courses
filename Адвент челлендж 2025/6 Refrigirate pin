@@ -1,0 +1,9 @@
+def crack_pincode(pincode):
+    matrix = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], [None, '0', None]]
+    output = list()
+    for char in pincode:
+        print(char)
+        print(matrix.index(char))
+
+
+print(crack_pincode(input()))

@@ -1,0 +1,55 @@
+def is_encryption(s):
+    answers_encryption = ['зашифровать', 'з', 'ш', 'шифровать', 'e', 'encryption']
+    answers_decryption = ['дешифровать', 'д', 'd', 'decryption']
+    while s.lower() not in answers_encryption and s.lower() not in answers_decryption:
+        print('Я вас не понимаю, вы хотите зашифровать или дешифровать текст? (Ш/д)')
+        s = input()
+    if s.lower() in answers_encryption:
+        print('Прогламма будет работать в режиме шифрования.')
+        return True
+    else:
+        print('Программа будет работать в режиме дешифрования.')
+        return False
+    
+
+def is_russian(s):
+    rus = ['ru', 'rus', 'russian', 'r', 'р', 'ру', 'рус', 'русский']
+    eng = ['e', 'en', 'eng', 'english', 'а', 'ан', 'анг', 'английский']
+    while s.lower() not in rus and s.lower() not in eng:
+        print('Я вас не понимаю, введите язык, на котором написано ваше сообщение. (Рус/Англ)')
+        s = input()
+    if s.lower() in rus:
+        print('Программа будет работать с русским текстом. Обращаю внимания, что буква "ё" не обрабатывается')
+        return True
+    else:
+        print('Программа будет работать с английским текстом.')
+        return False
+
+
+def can_convert_to_int(num):
+    correct_input = False
+    while not correct_input:
+        if num.isdigit():
+            correct_input = True
+        else:
+            print('Я вас не понимаю, введите пожалуйста целое положительное число.')
+            num = input()
+    return int(num)
+
+
+def caesar_code(encryption, language, shift_step, message):
+    if not encryption:
+        shift_step = -shift_step
+    
+
+
+print('Добро пожаловать в программу, осуществляющую шифрование/дешифрование '
+      'текста шифром Цезаря.')
+print('Вы хотите зашифировать или дешифровать текст? (Ш/д)')
+encryption = is_encryption(input())
+print('Выберете язык на котором написано ваше сообщение. (Рус/Англ)')
+language = is_russian(input())
+print(language)
+print('Введите желаемый шаг сдвига вправо.')
+shift_step = can_convert_to_int(input())
+message = input('Введите сообщение, которое необходимо шифровать/дешифровать.')

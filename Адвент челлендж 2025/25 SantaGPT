@@ -1,0 +1,11 @@
+digits = [21, 30, 8, 13, 29, 27, 6, 25, 5, 50, 11, 42, 3, 18, 9, 24, 37, 7, 44, 15, 19, 12, 33, 16]
+print(f'Минимальное число - {min(digits)}, максимальное число - {max(digits)}')
+suma = 0
+for digit in digits:
+    if digit % 2 == 0:
+        suma += digit
+print(f'Сумма четных чисел - {suma}')
+arifm = sum(digits) / len(digits)
+print(f'Среднее арифметическое всех чисел = {arifm}')
+code = (min(digits) * max(digits)) + suma - arifm
+print(code)

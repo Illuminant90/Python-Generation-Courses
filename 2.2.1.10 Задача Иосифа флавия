@@ -1,0 +1,45 @@
+"""n = int(input())
+k = int(input())
+solders = [1 for i in range(n)]
+old_cursor = 0
+new_cursor = 0
+while solders.count(1) > 1:
+    old_cursor = new_cursor
+    new_cursor = (new_cursor + k) % n
+    while solders[new_cursor] != 1:
+        new_cursor = (new_cursor + 1) % n
+    if new_cursor > old_cursor:
+        new_cursor = (new_cursor + solders[old_cursor:new_cursor + 1].count(0)) % n
+    elif old_cursor > new_cursor:
+        new_cursor = (new_cursor + solders[new_cursor:old_cursor + 1].count(0)) % n
+    solders[new_cursor] = 0
+    print(*solders)
+    while solders[new_cursor] != 1 and new_cursor != old_cursor:
+        new_cursor = (new_cursor + 1) % n
+print(new_cursor + 1)
+solders = [i for i in range(1, n + 1)]
+old_cursor = 0
+new_cursor = 0
+print(*solders)
+while len(solders) > 1:
+    old_cursor = new_cursor
+    new_cursor = (new_cursor + k - 1) % len(solders)
+    print(f'Курсор после сдвига {new_cursor}')
+    #if new_cursor == old_cursor:
+    #    new_cursor = (new_cursor + 1) % len(solders)
+    print(f'Удаляем воина {solders[new_cursor]}')
+    solders.pop(new_cursor)
+    print(*solders)
+    #cursor = (cursor + 1) % len(solders)
+    new_cursor = new_cursor % len(solders)
+    print(f'Курсор текущее положение курсора {new_cursor}')
+print(*solders)"""
+n = int(input())
+k = int(input())
+solders = [i for i in range(1, n + 1)]
+cursor = 0
+while len(solders) > 1:
+    cursor = (cursor + k - 1) % len(solders)
+    solders.pop(cursor)
+    cursor = cursor % len(solders)
+print(*solders)

@@ -1,0 +1,48 @@
+def next_palindrome(n_str):
+    length = len(n_str)
+    n_int = int(n_str)
+    
+    # Функция для генерации палиндрома на основе половины
+    def create_palindrome(left_half, is_odd):
+        if is_odd:
+            return left_half + left_half[:-1][::-1]
+        else:
+            return left_half + left_half[::-1]
+    
+    # Получаем половину числа
+    half_len = (length + 1) // 2
+    left_half = n_str[:half_len]
+    is_odd = (length % 2 != 0)
+    candidate_str = create_palindrome(left_half, is_odd)
+    candidate_int = int(candidate_str)
+
+    # Если палиндром больше n, то возвращаем его
+    if candidate_int > n_int:
+        return candidate_str
+    else:
+        # Увеличиваем половину
+        incremented_half = str(int(left_half) + 1)
+        # Обработка случая переполнения длины
+        if len(incremented_half) > len(left_half):
+            # Например, 999 + 1 = 1000 для 3-значных, что увеличивает длину половины
+            # Тогда весь палиндром получится длины +1
+            # Например, для 999...999 (например, 9..9) нам нужно увеличить длину
+            # И в этом случае, следующий палиндром будет иметь длину +1
+            new_length = length + 1
+            if new_length % 2 == 0:
+                # В случае увеличения длины, например, из 99 сделать 101
+                return '1' + '0' * (length - 1) + '1'
+            else:
+                # Аналогично, для нечетной длины
+                return '1' + '0' * (length - 1) + '1'
+        else:
+            # Формируем новую половину и полный палиндром
+            new_candidate_str = create_palindrome(incremented_half, is_odd)
+            return new_candidate_str
+
+# Ввод числа
+n_str = input().strip()
+
+# Находим следующий палиндром
+result = next_palindrome(n_str)
+print(result)
