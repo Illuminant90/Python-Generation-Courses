@@ -1,0 +1,18 @@
+h1 = int(input())
+m1 = int(input())
+h2 = int(input())
+m2 = int(input())
+moment_1 = h1 * 60 + m1
+moment_2 = h2 * 60 + m2
+for min in range(moment_1, moment_2 + 1):
+    hour = min // 60
+    minute = min % 60
+    if 0 <= hour <= 9:
+        hour = '0' + str(hour)
+    else:
+        hour = str(hour)
+    if 0 <= minute <= 9:
+        minute = '0' + str(minute)
+    else:
+        minute = str(minute)
+    print(hour + ':' + minute)
