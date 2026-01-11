@@ -1,0 +1,16 @@
+# объявление функции
+def print_symbol_counts(s):
+    abc = list()
+    s = s.lower()
+    for letter in s:
+        if letter not in abc:
+            abc.append(letter)
+    abc.sort()
+    for letter in abc:
+        print(f'{letter}: {s.count(letter)}')
+
+# считываем данные
+s = input()
+
+# вызываем функцию
+print_symbol_counts(s)
