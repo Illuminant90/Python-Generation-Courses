@@ -1,0 +1,15 @@
+def chunked(line, n):
+    local_line = line.split()
+    output = [[]]
+    for i in range(len(local_line)):
+        if i % n == 0:
+            output.append([local_line[i]])
+        else:
+            output[-1].append(local_line[i])
+    output.pop(0)
+    return output
+
+
+line = input()
+n = int(input())
+print(chunked(line, n))
