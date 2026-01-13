@@ -1,0 +1,13 @@
+from math import factorial
+
+
+def line_pascal_triangle(n):
+    line = list()
+    for m in range(n + 1):
+        digit = (factorial(n)) / (factorial(m) * factorial(n - m))
+        line.append(int(digit))
+    return line
+
+
+n = int(input())
+print(line_pascal_triangle(n))
