@@ -1,0 +1,17 @@
+size = input().split()
+n = int(size[0])
+m = int(size[1])
+count = 1
+diagonals = 0
+matrix = [[0 for _ in range(m)] for _ in range(n)]
+while count <= n * m:
+    for i in range(n):
+        for j in range(m):
+            if i + j == diagonals:
+                matrix[i][j] = count
+                count +=1
+    diagonals += 1
+for i in range(n):
+    for j in range(m):
+        print(str(matrix[i][j]).ljust(2), end = ' ')
+    print()
