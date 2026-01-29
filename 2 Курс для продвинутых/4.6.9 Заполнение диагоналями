@@ -13,5 +13,5 @@ while count <= n * m:
     diagonals += 1
 for i in range(n):
     for j in range(m):
-        print(str(matrix[i][j]).ljust(2), end = ' ')
+        print(str(matrix[i][j]).ljust(3), end = ' ')
     print()

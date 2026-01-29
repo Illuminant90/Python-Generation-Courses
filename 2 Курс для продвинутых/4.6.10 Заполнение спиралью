@@ -1,16 +1,58 @@
+def fill_spiral_matrix(n, m):
+    """
+    Заполняет матрицу n x m числами от 1 до n*m по спирали.
+    
+    Args:
+        n: количество строк
+        m: количество столбцов
+    
+    Returns:
+        Заполненная матрица
+    """
+    # Создаем матрицу, заполненную нулями
+    matrix = [[0] * m for _ in range(n)]
+    
+    # Начальные значения границ
+    top, bottom = 0, n - 1
+    left, right = 0, m - 1
+    
+    # Начинаем с числа 1
+    num = 1
+    
+    while top <= bottom and left <= right:
+        # Заполняем верхнюю строку слева направо
+        for i in range(left, right + 1):
+            matrix[top][i] = num
+            num += 1
+        top += 1
+        
+        # Заполняем правый столбец сверху вниз
+        for i in range(top, bottom + 1):
+            matrix[i][right] = num
+            num += 1
+        right -= 1
+        
+        if top <= bottom:
+            # Заполняем нижнюю строку справа налево
+            for i in range(right, left - 1, -1):
+                matrix[bottom][i] = num
+                num += 1
+            bottom -= 1
+        
+        if left <= right:
+            # Заполняем левый столбец снизу вверх
+            for i in range(bottom, top - 1, -1):
+                matrix[i][left] = num
+                num += 1
+            left += 1
+    
+    return matrix
+
+
 size = input().split()
 n = int(size[0])
 m = int(size[1])
-count = 1
-diagonals = 0
-matrix = [[0 for _ in range(m)] for _ in range(n)]
-while count <= n * m:
-    for i in range(n):
-        for j in range(m):
-            if i + j == diagonals:
-                matrix[i][j] = count
-                count +=1
-    diagonals += 1
+matrix = fill_spiral_matrix(n, m)
 for i in range(n):
     for j in range(m):
         print(str(matrix[i][j]).ljust(2), end = ' ')
