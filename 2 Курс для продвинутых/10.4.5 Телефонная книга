@@ -2,11 +2,13 @@ number_book = {}
 for _ in range(int(input())):
     number, name = input().split()
     name = name.lower()
-    print(name, number)
+    if name not in number_book:
+        number_book[name] = [int(number)]
+    else:
+        number_book[name].append(int(number))
+for _ in range(int(input())):
+    name = input().lower()
     if name in number_book:
-        number_book[name] = number
-    '''else:
-        number_book[name] = number_book[name].append(number)'''
-    print(number_book)
-'''for _ in range(int(input())):
-    print(*number_book[input().lower()])'''
+        print(*number_book[name])
+    else:
+        print('абонент не найден')
