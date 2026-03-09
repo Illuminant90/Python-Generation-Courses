@@ -1,0 +1,3 @@
+files = ['pygen_icon.png', 'Oppenheimer(2024).mkv', 'ideas.TxT', 'codes.txt', 'avatar.PNG']
+set_files = {files[i].lower() for i in range(len(files)) if files[i].split('.')[1].lower() == 'png'}
+print(*sorted(set_files))

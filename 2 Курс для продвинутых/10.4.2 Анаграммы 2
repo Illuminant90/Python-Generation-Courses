@@ -1,0 +1,16 @@
+words_1 = input().split()
+words_2 = input().split()
+symbols_1 = {}
+symbols_2 = {}
+for word in words_1:
+    word = word.strip("'.,!?:;-")
+    for letter in word:
+        symbols_1[letter.lower()] = symbols_1.get(letter.lower(), 0) + 1
+for word in words_2:
+    word = word.strip("'.,!?:;-")
+    for letter in word:
+        symbols_2[letter.lower()] = symbols_2.get(letter.lower(), 0) + 1 
+if symbols_1 == symbols_2:
+    print('YES')
+else:
+    print('NO')
