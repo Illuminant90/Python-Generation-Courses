@@ -1,0 +1,11 @@
+from decimal import Decimal as D
+
+digit = input()
+d = D(digit)
+sign_d, digits_d, exp_d = d.as_tuple()
+if -1 < d < 1:
+    digits = list(digits_d)
+    digits.append(0)
+else:
+    digits = list(digits_d)
+print(max(digits) + min(digits))
