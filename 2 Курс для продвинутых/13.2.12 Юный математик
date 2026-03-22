@@ -1,0 +1,13 @@
+from fractions import Fraction as F
+
+
+n = int(input())
+record = 0
+for i in range(1, n + 1):
+    if i >= n - i:
+        break
+    digit_fraction = F(i, n - i)
+    digit_str = (f'{i}/{n - i}')
+    if str(digit_fraction) == digit_str and digit_fraction > record:
+        record = digit_fraction
+print(record)

@@ -1,0 +1,12 @@
+from fractions import Fraction as F
+
+
+n = int(input())
+result = list()
+for denominator in range(1, n + 1):
+    for numerator in range(1, denominator):
+        digit_fraction = F(numerator, denominator)
+        if numerator == digit_fraction.numerator:
+            result.append(digit_fraction)
+result.sort()            
+print(*result, sep = '\n')
