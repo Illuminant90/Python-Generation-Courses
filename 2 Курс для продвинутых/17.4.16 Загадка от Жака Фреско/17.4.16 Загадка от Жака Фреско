@@ -1,0 +1,29 @@
+from decimal import *
+
+
+def fresco_goats(file_name):
+    varieties_goats = dict()
+    with open('/home/ivan/Документы/Python-Generation-Courses/2 Курс для продвинутых/17.4.16 Загадка от Жака Фреско/goats1.txt', encoding='utf-8') as fl:
+        line = fl.readline().rstrip()
+        line = fl.readline().rstrip()
+        while line.rstrip() != 'GOATS':
+            varieties_goats[line] = Decimal(0)
+            line = fl.readline().rstrip()
+        line = fl.readline().rstrip()
+        while line != '':
+            varieties_goats[line] += 1
+            line = fl.readline().rstrip()
+    total_goats = Decimal(sum(varieties_goats.values()))
+    answer_list = []
+    for goat_color, goat_count in varieties_goats.items():
+        if Decimal(goat_count / total_goats) > Decimal(0.07):
+            answer_list.append(goat_color + '\n')
+    answer_list.sort()
+    with open('answer.txt', 'w', encoding='utf-8') as answer:
+        answer.writelines(answer_list)
+    return None
+
+
+fresco_goats('goats1.txt')
+with open('answer.txt') as f:
+   print(f.read())

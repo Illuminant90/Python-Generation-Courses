@@ -1,0 +1,9 @@
+COLOURS
+Yellow goat
+White goat
+Blue goat
+GOATS
+Yellow goat
+White goat
+Yellow goat
+Blue goat
