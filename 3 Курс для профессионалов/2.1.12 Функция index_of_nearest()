@@ -1,0 +1,16 @@
+'''def index_of_nearest(numbers, number):
+    if len(numbers) == 0:
+        return -1
+    nears_dict = {index_num: near for index_num, near in enumerate([abs(num - number) for num in numbers])}
+    min_near = min(nears_dict.values())
+    for key, value in nears_dict.items():
+        if value == min_near:
+            return key'''
+
+
+def index_of_nearest(numbers, number):
+    if not numbers:
+        return -1
+    return min(enumerate(numbers), key=lambda x: abs(x[1] - number))[0]
+
+print(index_of_nearest([9, 5, 3, 2, 11], 4))

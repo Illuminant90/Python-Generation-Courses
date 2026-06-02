@@ -1,5 +1,7 @@
 import turtle
 
+turtle.showturtle()
+
 turtle.forward(30)
 turtle.left(45)
 
