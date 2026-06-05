@@ -1,0 +1,17 @@
+def choose_plural(amount, declensions):
+    if (amount % 100) // 10 == 1:
+        return f'{amount} {declensions[2]}'
+    last_digit = amount % 10
+    if last_digit in (0, 5, 6, 7, 8, 9):
+        return f'{amount} {declensions[2]}'
+    if last_digit == 1:
+        return f'{amount} {declensions[0]}'
+    if last_digit in (2, 3, 4):
+        return f'{amount} {declensions[1]}'
+
+answer = choose_plural(21, ('пример', 'примера', 'примеров'))
+print(answer, '21 пример', answer == '21 пример')
+answer = choose_plural(92, ('гвоздь', 'гвоздя', 'гвоздей'))
+print(answer, '92 гвоздя', answer == '92 гвоздя')
+answer = choose_plural(8, ('яблоко', 'яблока', 'яблок'))
+print(answer, '8 яблок', answer == '8 яблок')
