@@ -1,0 +1,44 @@
+def convert_to_bytes(fl_size, measure):
+    if measure == measures[0]:
+        return int(fl_size)
+    if measure == measures[1]:
+        return int(fl_size) * 1024
+    if measure == measures[2]:
+        return int(fl_size) * 1024 * 1024
+    if measure == measures[3]:
+        return int(fl_size) * 1024 *1024 *1024
+
+
+def convert_bytes_to_usefull(size):
+    fl_size = size
+    count = 0
+    while fl_size > 1024 and count <= 3:
+        fl_size /= 1024
+        count += 1
+    return str(math_round(fl_size)) + ' ' + measures[count]
+
+
+def math_round(num):
+    integer_part = int(num)
+    fractional_part = num - integer_part
+    if fractional_part >= 0.5:
+        return integer_part + 1
+    else:
+        return integer_part
+
+
+measures = ('B', 'KB', 'MB', 'GB')
+file_extension_dict = dict()
+with open('files.txt', encoding='utf-8') as fl:
+    for line in fl:
+        fl_info = line.split()
+        fl_extantion = fl_info[0][fl_info[0].rfind('.'):]
+        file_extension_dict.setdefault(fl_extantion, [[], 0])
+        file_extension_dict[fl_extantion][0].append(fl_info[0])
+        file_extension_dict[fl_extantion][1] += convert_to_bytes(fl_info[1], fl_info[2])
+for fl_extantion, fl_info in sorted(file_extension_dict.items()):
+    for fl_name in sorted(fl_info[0]):
+        print(fl_name)
+    print('----------')
+    print(f'Summary: {convert_bytes_to_usefull(fl_info[1])}')
+    print()
