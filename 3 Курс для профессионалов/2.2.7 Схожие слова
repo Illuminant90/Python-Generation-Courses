@@ -1,0 +1,24 @@
+def convert_letter_to_digit(word):
+    result = list()
+    for letter in word:
+        if letter in vowel_letters:
+            result += [1]
+        else:
+            result += [0]
+    return result
+
+
+vowel_letters = ('а', 'у', 'о', 'ы', 'и', 'э', 'я', 'ю', 'ё', 'е')
+consonant_letters = ('б', 'в', 'г', 'д', 'ж', 'з', 'й', 'к', 'л', 'м', 'н', 'п', 'р', 'с', 'т', 'ф', 'х', 'ц', 'ч', 'ш', 'щ')
+origin_word = input()
+origin_word_letters = convert_letter_to_digit(origin_word)
+count_vovel_letters_origin_word = origin_word_letters.count(1)
+for _ in range(int(input())):
+    current_word = input()
+    current_word_letters = convert_letter_to_digit(current_word)
+    if count_vovel_letters_origin_word == current_word_letters.count(1):
+        for letter1, letter2 in zip(origin_word_letters, convert_letter_to_digit(current_word)):
+            if letter1 != letter2:
+                break
+        else:
+            print(current_word)
