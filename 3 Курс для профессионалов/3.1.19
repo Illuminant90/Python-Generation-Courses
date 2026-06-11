@@ -1,0 +1,17 @@
+from datetime import date
+
+def convert_month_to_quarter(month):
+    if 1 <= month <= 3:
+        return 'Q1'
+    if 4 <= month <= 6:
+        return 'Q2'
+    if 7 <= month <= 9:
+        return 'Q3'
+    if 10 <= month <= 12:
+        return 'Q4'
+
+
+dates = [date(2010, 9, 28), date(2017, 1, 13), date(2009, 12, 25), date(2010, 2, 27), date(2021, 10, 11), date(2020, 3, 13), date(2000, 7, 7), date(1999, 4, 14), date(1789, 11, 19), date(2013, 8, 21), date(1666, 6, 6), date(1968, 5, 26)]
+quarters = {month: convert_month_to_quarter(month) for month in range(1, 13)}
+for procesed_data in dates:
+        print(procesed_data.year, quarters[procesed_data.month], sep='-')
