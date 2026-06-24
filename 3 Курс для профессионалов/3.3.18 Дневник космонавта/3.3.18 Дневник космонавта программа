@@ -1,0 +1,26 @@
+from datetime import datetime
+
+with open('/home/ivan/Документы/Python-Generation-Courses/3 Курс для профессионалов/3.3.18 Дневник космонавта/diary.txt', 'r', encoding='utf-8') as fl:
+    diary_dict = dict()
+    new_record = False
+    pattern = '%d.%m.%Y; %H:%M\n'
+    for line in fl:
+        try:
+            time_record = datetime.strptime(line, pattern)
+            diary_dict[time_record] = []
+            new_record = True
+            continue
+        except:
+            pass
+        if line == '\n':
+            new_record = False
+            continue
+        if new_record:
+            diary_dict[time_record].append(line)
+
+len_diary = len(diary_dict)
+for count, record_time in enumerate(sorted(diary_dict)):
+    print(record_time.strftime('%d.%m.%Y; %H:%M'))
+    print(''.join(diary_dict[record_time]).rstrip('\n'))
+    if count + 1 != len_diary:
+        print()    
