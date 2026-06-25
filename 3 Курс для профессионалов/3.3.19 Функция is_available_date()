@@ -1,0 +1,29 @@
+from datetime import datetime
+
+def is_available_date(busy_dates, requested_dates):
+    busy_dates_set = set()
+    pattern = '%d.%m.%Y'
+    for procesed_elem in busy_dates:
+        procesed_dates = procesed_elem.split('-')
+        if len(procesed_dates) == 1:
+            busy_dates_set.add(datetime.strptime(procesed_dates[0], pattern))
+        else:
+            start_busy_dates = datetime.strptime(procesed_dates[0], pattern).toordinal()
+            stop_busy_dates = datetime.strptime(procesed_dates[1], pattern).toordinal()
+            for procesed_date in range(start_busy_dates, stop_busy_dates + 1):
+                 busy_dates_set.add(datetime.fromordinal(procesed_date))
+    requested_dates_set = set()
+    procesed_dates = requested_dates.split('-')
+    if len(procesed_dates) == 1:
+        requested_dates_set.add(datetime.strptime(procesed_dates[0], pattern))
+    else:
+        start_requested_dates = datetime.strptime(procesed_dates[0], pattern).toordinal()
+        stop_requested_dates = datetime.strptime(procesed_dates[1], pattern).toordinal()
+        for procesed_date in range(start_requested_dates, stop_requested_dates + 1):
+             requested_dates_set.add(datetime.fromordinal(procesed_date))
+    return requested_dates_set.isdisjoint(busy_dates_set)
+
+
+dates = ['04.11.2021', '05.11.2021-09.11.2021']
+some_date = '01.11.2021-04.11.2021'
+print(is_available_date(dates, some_date))
