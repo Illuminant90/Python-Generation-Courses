@@ -1,0 +1,52 @@
+from datetime import datetime
+
+def choose_plural(amount, declensions):
+    if (amount % 100) // 10 == 1:
+        return f'{amount} {declensions[2]}'
+    last_digit = amount % 10
+    if last_digit in (0, 5, 6, 7, 8, 9):
+        return f'{amount} {declensions[2]}'
+    if last_digit == 1:
+        return f'{amount} {declensions[0]}'
+    if last_digit in (2, 3, 4):
+        return f'{amount} {declensions[1]}'
+    
+
+def convert_seconds_to_minute(seconds):
+    while seconds > seconds_in_hour:
+        seconds -= seconds_in_hour
+    return seconds // seconds_in_minute
+
+
+def convert_seconds_to_hour(seconds):
+    while seconds > seconds_in_day:
+        seconds -= seconds_in_day
+    return seconds // seconds_in_hour
+
+
+time_designations = {'minute': ('минута', 'минуты', 'минут'),
+                     'hour': ('час', 'часа', 'часов'),
+                     'day': ('день', 'дня', 'дней')}
+pattern = '%d.%m.%Y %H:%M'
+release_time = datetime.strptime('08.11.2022 12:00', pattern)
+current_time = datetime.strptime(input(), pattern)
+remaining_time = release_time - current_time
+remaining_time_seconds = remaining_time.seconds
+seconds_in_minute = 60
+seconds_in_hour = seconds_in_minute * 60
+seconds_in_day = seconds_in_hour * 24 
+if current_time >= release_time:
+    print('Курс уже вышел!')
+elif remaining_time.days == 0:
+    if remaining_time_seconds >= seconds_in_hour:
+        if remaining_time_seconds // seconds_in_hour == remaining_time_seconds / seconds_in_hour:
+            print(f'До выхода курса осталось: {choose_plural(remaining_time_seconds // seconds_in_hour, time_designations['hour'])}')
+        else:
+            print(f'До выхода курса осталось: {choose_plural(remaining_time_seconds // seconds_in_hour, time_designations['hour'])} и {choose_plural(convert_seconds_to_minute(remaining_time_seconds), time_designations['minute'])}')
+    else:
+        print(f'До выхода курса осталось: {choose_plural(remaining_time_seconds // seconds_in_minute, time_designations['minute'])}')
+else:
+    if remaining_time_seconds // seconds_in_day == remaining_time_seconds / seconds_in_day:
+        print(f'До выхода курса осталось: {choose_plural(remaining_time.days, time_designations['day'])}')
+    else:
+        print(f'До выхода курса осталось: {choose_plural(remaining_time.days, time_designations['day'])} и {choose_plural(convert_seconds_to_hour(remaining_time_seconds), time_designations['hour'])}')        

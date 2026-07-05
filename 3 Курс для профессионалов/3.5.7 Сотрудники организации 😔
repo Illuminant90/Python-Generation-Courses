@@ -1,0 +1,20 @@
+from datetime import datetime, timedelta
+
+pattern = '%d.%m.%Y'
+cur_date = datetime.strptime(input(), pattern)
+cur_year = cur_date.year
+staff = dict()
+for _ in range(int(input())):
+    *name, dt = input().split()
+    staff[datetime.strptime(dt, pattern)] = ' '.join(name)
+result_achived = False  
+for birthday, name in sorted(staff.items(), reverse = True):
+    for dt in range((cur_date + timedelta(days = 1)).toordinal(), (cur_date + timedelta(days = 8)).toordinal()):
+        if datetime.fromordinal(dt).day == birthday.day and datetime.fromordinal(dt).month == birthday.month:
+            print(name)
+            result_achived = True
+            break
+    if result_achived:
+        break
+else:
+    print('Дни рождения не планируются')

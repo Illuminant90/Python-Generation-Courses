@@ -1,0 +1,12 @@
+from datetime import datetime
+
+pattern = '%d.%m.%Y'
+staff = dict()
+for _ in range(int(input())):
+    *name, birth_date = input().split()
+    birth_date = datetime.strptime(birth_date, pattern)
+    staff[birth_date] = staff.get(birth_date, []) + [' '.join(name)]
+max_count_birthday = max(map(lambda el: len(el), staff.values()))
+result = sorted([birthday for birthday, names in staff.items() if len(names) == max_count_birthday])
+for dt in result:
+    print(dt.strftime(pattern))
