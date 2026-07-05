@@ -40,13 +40,13 @@ if current_time >= release_time:
 elif remaining_time.days == 0:
     if remaining_time_seconds >= seconds_in_hour:
         if remaining_time_seconds // seconds_in_hour == remaining_time_seconds / seconds_in_hour:
-            print(f'До выхода курса осталось: {choose_plural(remaining_time_seconds // seconds_in_hour, time_designations['hour'])}')
+            print(f'До выхода курса осталось: {choose_plural(remaining_time_seconds // seconds_in_hour, time_designations["hour"])}')
         else:
-            print(f'До выхода курса осталось: {choose_plural(remaining_time_seconds // seconds_in_hour, time_designations['hour'])} и {choose_plural(convert_seconds_to_minute(remaining_time_seconds), time_designations['minute'])}')
+            print(f'До выхода курса осталось: {choose_plural(remaining_time_seconds // seconds_in_hour, time_designations["hour"])} и {choose_plural(convert_seconds_to_minute(remaining_time_seconds), time_designations["minute"])}')
     else:
-        print(f'До выхода курса осталось: {choose_plural(remaining_time_seconds // seconds_in_minute, time_designations['minute'])}')
+        print(f'До выхода курса осталось: {choose_plural(remaining_time_seconds // seconds_in_minute, time_designations["minute"])}')
 else:
-    if remaining_time_seconds // seconds_in_day == remaining_time_seconds / seconds_in_day:
-        print(f'До выхода курса осталось: {choose_plural(remaining_time.days, time_designations['day'])}')
+    if remaining_time_seconds // seconds_in_day == remaining_time_seconds / seconds_in_day or convert_seconds_to_hour(remaining_time_seconds) < 1:
+        print(f'До выхода курса осталось: {choose_plural(remaining_time.days, time_designations["day"])}')
     else:
-        print(f'До выхода курса осталось: {choose_plural(remaining_time.days, time_designations['day'])} и {choose_plural(convert_seconds_to_hour(remaining_time_seconds), time_designations['hour'])}')        
+        print(f'До выхода курса осталось: {choose_plural(remaining_time.days, time_designations["day"])} и {choose_plural(convert_seconds_to_hour(remaining_time_seconds), time_designations["hour"])}')        
