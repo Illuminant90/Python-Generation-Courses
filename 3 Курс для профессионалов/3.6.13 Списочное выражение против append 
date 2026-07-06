@@ -1,0 +1,27 @@
+import time
+
+
+def for_and_append():                            # с использованием цикла for и метода append()
+    iterations = 10_000_000
+    result = []
+    for i in range(iterations):
+        result.append(i + 1)
+    return result
+
+
+def list_comprehension():                        # с использованием списочного выражения
+    iterations = 10_000_000
+    return [i + 1 for i in range(iterations)]    
+
+
+def get_the_fastest_func(funcs):
+    func_to_time_dict = dict()
+    for func in funcs:
+        start_time = time.perf_counter()
+        func()
+        end_time = time.perf_counter()
+        func_to_time_dict[func] = end_time - start_time
+    return (min(func_to_time_dict, key = lambda func: func_to_time_dict[func]), func_to_time_dict)
+
+
+print(get_the_fastest_func([for_and_append, list_comprehension]))

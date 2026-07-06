@@ -1,0 +1,28 @@
+from math import factorial                   # функция из модуля math
+import time 
+
+
+def factorial_recurrent(n):                  # рекурсивная функция
+    if n == 0:
+        return 1
+    return n * factorial_recurrent(n - 1)    
+
+
+def factorial_classic(n):                    # итеративная функция
+    f = 1
+    for i in range(2, n + 1):
+        f *= i
+    return f
+
+
+def get_the_fastest_func(funcs, arg):
+    func_to_time_dict = dict()
+    for func in funcs:
+        start_time = time.perf_counter()
+        func(arg)
+        end_time = time.perf_counter()
+        func_to_time_dict[func] = end_time - start_time
+    return (min(func_to_time_dict, key = lambda func: func_to_time_dict[func]), func_to_time_dict)
+
+
+print(get_the_fastest_func([factorial, factorial_recurrent, factorial_classic], 900))
