@@ -1,0 +1,19 @@
+from sys import stdin
+
+result = []
+count = 0
+names = ('Анри', 'Дима')
+for score in stdin.read().split():
+    if count % 2 == 0:
+        result.append(names[0] + ' — ' + score)
+    else:
+        result.append(names[1] + ' — ' + score)
+    count += 1    
+for line in result[::-1]:
+    name, score = line.split(' — ')
+    if int(score) % 2 == 0:
+        print(name)
+        break
+    else:
+        print(names[(names.index(name) + 1) % 2])
+        break
