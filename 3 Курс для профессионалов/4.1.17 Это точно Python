@@ -1,0 +1,27 @@
+from sys import stdin
+from datetime import datetime
+
+pattern = '%d.%m.%Y'
+asc = True
+desc = True
+mix = False
+for index, line in enumerate(stdin):
+    if index == 0:
+        past_elem = datetime.strptime(line.strip(), pattern)
+        continue
+    elem = datetime.strptime(line.strip(), pattern)
+    if elem > past_elem:
+        desc = False
+    elif elem < past_elem:
+        asc = False
+    else:
+        mix = True
+    past_elem = elem
+if mix:
+    print('MIX')
+elif desc:
+    print('DESC')
+elif asc:
+    print('ASC')
+else:
+    print('MIX')
