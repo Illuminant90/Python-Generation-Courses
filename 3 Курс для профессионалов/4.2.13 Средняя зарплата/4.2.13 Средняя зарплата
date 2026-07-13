@@ -1,7 +1,7 @@
 from csv import reader
 
 company_salary= dict()
-with open('salary_data.csv', encoding='utf-8') as fl:
+with open('/home/ivan/Документы/Python-Generation-Courses/3 Курс для профессионалов/4.2.13 Средняя зарплата/salary_data.csv', encoding='utf-8') as fl:
     rows = reader(fl, delimiter=';')
     for index, row in enumerate(rows):
         if index == 0:
@@ -10,6 +10,5 @@ with open('salary_data.csv', encoding='utf-8') as fl:
         company_salary[company_name] = company_salary.get(company_name, []) + [int(salary)]
 for company_name, salarys in company_salary.items():
     company_salary[company_name] = sum(salarys) / len(salarys)
-company_salary = sorted(company_salary)
-for company in sorted(company_salary.items(), key=lambda item: item):
+for company in sorted(company_salary, key=lambda item: company_salary[item]):
     print(company)
