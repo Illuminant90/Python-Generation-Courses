@@ -1,0 +1,12 @@
+n = int(input())
+table = list()
+with open('/home/ivan/Документы/Python-Generation-Courses/3 Курс для профессионалов/4.2.14 Сортировка по столбцу/deniro.csv',encoding='utf-8') as fl:
+    for i, line in enumerate(fl.read().splitlines()):
+        table.append([])
+        for el in line.split(','):
+            if el.isdigit():
+                table[i].append(int(el))
+            else:
+                table[i].append(el)
+for line in sorted(table, key=lambda el: el[n - 1]):
+    print(*line, sep=',')
