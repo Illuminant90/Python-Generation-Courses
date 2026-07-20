@@ -1,0 +1,10 @@
+from csv import DictReader
+
+data = dict()
+with open('/home/ivan/Документы/Python-Generation-Courses/3 Курс для профессионалов/4.2.17 Wi-Fi Москвы/wifi.csv', encoding='utf-8') as fl_in:
+    data_in = DictReader(fl_in, delimiter=';')
+    for line in data_in:
+        district = line['district']
+        data[district] = data.get(district, 0) + int(line['number_of_access_points'])
+for district, number_of_access_points in sorted(data.items(), key=lambda item: (-item[1], item[0])):
+    print(f'{district}: {number_of_access_points}')

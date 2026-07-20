@@ -1,0 +1,14 @@
+from csv import DictReader, writer
+
+columns = ['domain', 'count']
+data = dict()
+column_name_email_in = 'email'
+with open('/home/ivan/Документы/Python-Generation-Courses/3 Курс для профессионалов/4.2.16 Популярные домены/data.csv', encoding='utf-8') as fl_in:
+    for line in DictReader(fl_in):
+        domain = line[column_name_email_in].split('@')[1]
+        data[domain] = data.get(domain, 0) + 1
+with open('/home/ivan/Документы/Python-Generation-Courses/3 Курс для профессионалов/4.2.16 Популярные домены/domain_usage.csv', 'w', encoding='utf-8', newline='') as fl_out:
+    fl_writer = writer(fl_out)
+    fl_writer.writerow(columns) # Запись заголовков
+    for domain, count in sorted(data.items(), key=lambda k: (k[1], k[0])):
+        fl_writer.writerow((domain, count))
