@@ -1,0 +1,16 @@
+from csv import DictReader
+
+list_surviving_men = list()
+list_surviving_women = list()
+criteria_age = 18
+criteria_survived = '1'
+sex = ('male', 'female')
+with open('/home/ivan/Документы/Python-Generation-Courses/3 Курс для профессионалов/4.2.18 Последний день на «Титанике»/titanic.csv', encoding='utf-8') as fl:
+    for row in DictReader(fl, delimiter=';'):
+        if row['survived'] == criteria_survived and float(row['age']) < criteria_age:
+            if row['sex'] == sex[0]:
+                list_surviving_men.append(row['name'])
+            elif row['sex'] == sex[1]:
+                list_surviving_women.append(row['name'])
+print(*list_surviving_men,sep='\n')
+print(*list_surviving_women,sep='\n')
