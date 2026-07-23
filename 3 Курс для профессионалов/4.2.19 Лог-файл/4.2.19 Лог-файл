@@ -1,0 +1,18 @@
+from datetime import datetime
+from csv import DictReader, writer, QUOTE_NONE
+
+pattern = r'%d/%m/%Y %H:%M'
+emails_dict = dict()
+columns = ['username', 'email', 'dtime']
+with open(r'C:\Users\Illum\Documents\Python\Python-Generation-Courses\3 Курс для профессионалов\4.2.19 Лог-файл\name_log.csv', encoding='utf-8') as fl_in:
+    rows = DictReader(fl_in)
+    for row in rows:
+        email = row['email']
+        emails_dict.setdefault(email, [])
+        emails_dict[email].append((row['username'], datetime.strptime(row['dtime'], pattern)))
+with open(r'C:\Users\Illum\Documents\Python\Python-Generation-Courses\3 Курс для профессионалов\4.2.19 Лог-файл\new_name_log.csv', 'w', encoding='utf-8', newline='') as fl_out:
+    wr = writer(fl_out, quoting=QUOTE_NONE)
+    wr.writerow(columns)
+    for email in sorted(emails_dict):
+        username, dtime = max(emails_dict[email], key=lambda x: x[1])
+        wr.writerow((username, email, dtime.strftime(pattern)))
