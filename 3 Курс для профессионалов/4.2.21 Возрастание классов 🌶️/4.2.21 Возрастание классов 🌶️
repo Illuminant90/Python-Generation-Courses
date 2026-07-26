@@ -1,0 +1,14 @@
+from csv import DictReader, DictWriter
+
+def comparator(el):
+    class_num, class_letter = el.split('-')
+    return (int(class_num), class_letter)
+
+
+with open(r'C:\Users\Illum\Documents\Python\Python-Generation-Courses\3 Курс для профессионалов\4.2.21 Возрастание классов 🌶️\student_counts.csv', encoding='utf-8') as fl_in, open(r'C:\Users\Illum\Documents\Python\Python-Generation-Courses\3 Курс для профессионалов\4.2.21 Возрастание классов 🌶️\sorted_student_counts.csv', 'w', encoding='utf-8', newline='') as fl_out:
+    students = DictReader(fl_in)
+    fields = students.fieldnames
+    columns = [fields[0]] + sorted(fields[1:], key=comparator)
+    wr = DictWriter(fl_out, fieldnames=columns)
+    wr.writeheader()
+    wr.writerows(students)

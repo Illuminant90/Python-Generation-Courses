@@ -1,0 +1,45 @@
+from csv import reader, writer
+
+def condense_csv(fl_name, id_name):
+    with open('C:\\Users\\Illum\\Documents\\Python\\Python-Generation-Courses\\3 Курс для профессионалов\\4.2.20 Проще, чем кажется 🌶️\\' + fl_name, encoding='utf-8') as fl_in:
+        rows = reader(fl_in)
+        data_dict = dict()
+        for row in rows:
+            object_name = row[0]
+            data_dict.setdefault(object_name, dict())
+            for i, object_characteristic in enumerate(row[1:], start=1):
+                if int(i) % 2 == 1:
+                    object_char = object_characteristic
+                    data_dict[object_name][object_char] = None
+                else:
+                    data_dict[object_name][object_char] = object_characteristic
+    with open(r'C:\Users\Illum\Documents\Python\Python-Generation-Courses\3 Курс для профессионалов\4.2.20 Проще, чем кажется 🌶️\condensed.csv', 'w', encoding='utf-8', newline='') as fl_out:
+        columns = [id_name]
+        for column in data_dict[object_name]:
+            columns.append(column)
+        wr = writer(fl_out)
+        wr.writerow(columns)
+        for object_name in data_dict:
+            row = [object_name]
+            for object_characteristic in data_dict[object_name]:
+                row.append(data_dict[object_name][object_characteristic])
+            wr.writerow(row)
+               
+
+text = '''01,Artist,Otis Taylor
+01,Title,Ran So Hard the Sun Went Down
+01,Time,3:52
+02,Artist,Waylon Jennings
+02,Title,Honky Tonk Heroes (Like Me)
+02,Time,3:29
+03,Artist,David Allan Coe
+03,Title,Willie Waylon And Me
+03,Time,3:26'''
+
+with open(r'C:\Users\Illum\Documents\Python\Python-Generation-Courses\3 Курс для профессионалов\4.2.20 Проще, чем кажется 🌶️\data.csv', 'w', encoding='utf-8') as file:
+    file.write(text)
+
+condense_csv('data.csv', id_name='Position')
+
+with open(r'C:\Users\Illum\Documents\Python\Python-Generation-Courses\3 Курс для профессионалов\4.2.20 Проще, чем кажется 🌶️\condensed.csv', encoding='utf-8') as file:
+    print(file.read().strip())

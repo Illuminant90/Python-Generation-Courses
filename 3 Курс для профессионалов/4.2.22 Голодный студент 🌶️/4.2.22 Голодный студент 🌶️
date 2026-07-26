@@ -1,0 +1,29 @@
+from csv import DictReader
+
+def print_result(goods_list):
+    min_good = min(goods_list)[0]
+    min_shop = min(goods_list, key=lambda el: el[1] if el[0] == min_good else 'Я')[1]
+    print(f'{min_good}: {min_shop}')
+
+
+with open(r'C:\Users\Illum\Documents\Python\Python-Generation-Courses\3 Курс для профессионалов\4.2.22 Голодный студент 🌶️\prices.csv', encoding='utf-8') as fl:
+    rows = DictReader(fl, delimiter=';')
+    prices_shops_dict = dict()
+    shop = 'Магазин'
+    record = 10 ** 7
+    for row in rows:
+        cur_shop = row[shop]
+        prices_shops_dict.setdefault(cur_shop, dict())
+        for good, price in row.items():
+            if good == shop:
+                continue
+            price = int(price)
+            if price < record:
+                record = price
+            prices_shops_dict[cur_shop].update({good: price})
+result = list()           
+for shop in prices_shops_dict:
+    for good, price in prices_shops_dict[shop].items():
+        if price == record:
+            result.append((good, shop))
+print_result(result)           
