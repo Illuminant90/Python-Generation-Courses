@@ -1,0 +1,20 @@
+from json import load, dump
+
+result = list()
+with open(r'C:\Users\i.seliverstov\Documents\Ivan\Python-Generation-Courses\3 Курс для профессионалов\4 Работа с файлами\4.4 Работа с json-файлами. Часть 2\4.4.7 Разные типы\data.json', encoding='utf-8') as fl_in:
+    for el in load(fl_in):
+        if type(el) is str:
+            result.append(el + '!')
+        elif type(el) is int:
+            result.append(el + 1)
+        elif type(el) is bool:
+            result.append(not el)
+        elif type(el) is list:
+            result.append(el * 2)
+        elif type(el) is dict:
+            el.update({'newkey': None})
+            result.append(el)
+        elif type(el) is None:
+            continue
+with open(r'C:\Users\i.seliverstov\Documents\Ivan\Python-Generation-Courses\3 Курс для профессионалов\4 Работа с файлами\4.4 Работа с json-файлами. Часть 2\4.4.7 Разные типы\updated_data.json', 'w', encoding='utf-8') as fl_out:
+    dump(result, fl_out)

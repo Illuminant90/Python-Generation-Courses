@@ -1,0 +1,15 @@
+from json import dump, load
+
+country = 'country'
+religion = 'religion'
+
+result = dict()
+
+with open(r'C:\Users\i.seliverstov\Documents\Ivan\Python-Generation-Courses\3 Курс для профессионалов\4 Работа с файлами\4.4 Работа с json-файлами. Часть 2\4.4.10 Я исповедую Python, а ты\countries.json', encoding='utf-8') as fl_in:
+    data = load(fl_in)
+
+for el in data:
+    result.setdefault(el[religion], []).append(el[country])
+
+with open(r'C:\Users\i.seliverstov\Documents\Ivan\Python-Generation-Courses\3 Курс для профессионалов\4 Работа с файлами\4.4 Работа с json-файлами. Часть 2\4.4.10 Я исповедую Python, а ты\religion.json', 'w', encoding='utf-8') as fl_out:
+    dump(result, fl_out, indent=3)

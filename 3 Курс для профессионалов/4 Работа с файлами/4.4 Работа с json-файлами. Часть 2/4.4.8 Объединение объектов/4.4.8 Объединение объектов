@@ -1,0 +1,4 @@
+from json import load, dump
+
+with open(r'C:\Users\i.seliverstov\Documents\Ivan\Python-Generation-Courses\3 Курс для профессионалов\4 Работа с файлами\4.4 Работа с json-файлами. Часть 2\4.4.8 Объединение объектов\data1.json', encoding='utf-8') as fl_in1, open(r'C:\Users\i.seliverstov\Documents\Ivan\Python-Generation-Courses\3 Курс для профессионалов\4 Работа с файлами\4.4 Работа с json-файлами. Часть 2\4.4.8 Объединение объектов\data2.json', encoding='utf-8') as fl_in2, open(r'C:\Users\i.seliverstov\Documents\Ivan\Python-Generation-Courses\3 Курс для профессионалов\4 Работа с файлами\4.4 Работа с json-файлами. Часть 2\4.4.8 Объединение объектов\data_merge.json', 'w', encoding='utf-8') as fl_out:
+    dump(load(fl_in1) | load(fl_in2), fl_out)  

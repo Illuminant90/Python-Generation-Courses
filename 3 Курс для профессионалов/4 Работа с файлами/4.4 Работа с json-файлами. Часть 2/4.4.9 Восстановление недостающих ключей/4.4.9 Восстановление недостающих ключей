@@ -1,0 +1,12 @@
+from json import dump, load
+
+with open(r'C:\Users\i.seliverstov\Documents\Ivan\Python-Generation-Courses\3 Курс для профессионалов\4 Работа с файлами\4.4 Работа с json-файлами. Часть 2\4.4.9 Восстановление недостающих ключей\people.json', encoding='utf-8') as fl_in:
+    people_list = load(fl_in)
+all_keys = set()
+for people in people_list:
+    all_keys.update(people)
+for people in people_list:
+    for key in all_keys:
+        people[key] = people.get(key, None)
+with open(r'C:\Users\i.seliverstov\Documents\Ivan\Python-Generation-Courses\3 Курс для профессионалов\4 Работа с файлами\4.4 Работа с json-файлами. Часть 2\4.4.9 Восстановление недостающих ключей\updated_people.json', 'w', encoding='utf-8') as fl_out:
+    dump(people_list, fl_out, indent=3)
