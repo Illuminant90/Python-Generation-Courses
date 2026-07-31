@@ -1,0 +1,20 @@
+from json import load
+from datetime import datetime, timedelta
+
+pool_address, pool_workinghourssummer, monday, dimensionssummer, length, width = ('Address', 'WorkingHoursSummer', 'Понедельник', 'DimensionsSummer', 'Length', 'Width')
+pattern = '%H:%M'
+result = {pool_address: None, length: 0, width: 0}
+start_time_timur = datetime.strptime('10:00', pattern)
+stop_time_timur = datetime.strptime('12:00', pattern)
+with open(r'C:\Users\i.seliverstov\Documents\Ivan\Python-Generation-Courses\3 Курс для профессионалов\4 Работа с файлами\4.4 Работа с json-файлами. Часть 2\4.4.13 Бассейны\pools.json', encoding='utf-8') as fl_in:
+    for pool in load(fl_in):
+        start_time, stop_time = pool[pool_workinghourssummer][monday].split('-')
+        start_time = datetime.strptime(start_time, pattern)
+        stop_time = datetime.strptime(stop_time, pattern)
+        if start_time <= start_time_timur and stop_time >= stop_time_timur:
+            if (pool[dimensionssummer][length], pool[dimensionssummer][width]) > (result[length], result[width]):
+                result[pool_address] = pool[pool_address]
+                result[length] = pool[dimensionssummer][length]
+                result[width] = pool[dimensionssummer][width]
+print(f'{result[length]}x{result[width]}')
+print(result[pool_address])                

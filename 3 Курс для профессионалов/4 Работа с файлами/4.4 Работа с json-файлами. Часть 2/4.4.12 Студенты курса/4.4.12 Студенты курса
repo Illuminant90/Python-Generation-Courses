@@ -1,0 +1,16 @@
+from json import load
+from csv import DictWriter
+
+name, city, age, progress, phone = ('name', 'city', 'age', 'progress', 'phone')
+columns_result = (name, phone)
+result = list()
+
+with open(r'C:\Users\i.seliverstov\Documents\Ivan\Python-Generation-Courses\3 Курс для профессионалов\4 Работа с файлами\4.4 Работа с json-файлами. Часть 2\4.4.12 Студенты курса\students.json', encoding='utf-8') as fl_in:
+    for student in load(fl_in):
+        if student[age] >= 18 and student[progress] >= 75:
+            result.append({name: student[name], phone: student[phone]})
+result.sort(key=lambda student: student[name])
+with open(r'C:\Users\i.seliverstov\Documents\Ivan\Python-Generation-Courses\3 Курс для профессионалов\4 Работа с файлами\4.4 Работа с json-файлами. Часть 2\4.4.12 Студенты курса\data.csv', 'w', encoding='utf-8', newline='') as fl_out:
+    wr = DictWriter(fl_out, fieldnames=columns_result)
+    wr.writeheader()
+    wr.writerows(result)

@@ -1,0 +1,10 @@
+from csv import DictReader
+from json import dump
+
+ObjectName, AdmArea, District, Address = ('ObjectName', 'AdmArea', 'District', 'Address')
+result = dict()
+with open(r'C:\Users\i.seliverstov\Documents\Ivan\Python-Generation-Courses\3 Курс для профессионалов\4 Работа с файлами\4.4 Работа с json-файлами. Часть 2\4.4.11 Спортивные площадки\playgrounds.csv', encoding='utf-8') as fl_in:
+    for line in DictReader(fl_in, delimiter=';'):
+        result.setdefault(line[AdmArea], {}).setdefault(line[District], []).append(line[Address])
+with open(r'C:\Users\i.seliverstov\Documents\Ivan\Python-Generation-Courses\3 Курс для профессионалов\4 Работа с файлами\4.4 Работа с json-файлами. Часть 2\4.4.11 Спортивные площадки\addresses.json', 'w', encoding='utf-8') as fl_out:
+    dump(result, fl_out, indent=3, ensure_ascii=False)

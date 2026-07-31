@@ -1,0 +1,24 @@
+from csv import DictReader
+from datetime import datetime
+from json import dump
+
+students_best_scores_dict = dict()
+with open(r'C:\Users\i.seliverstov\Documents\Ivan\Python-Generation-Courses\3 Курс для профессионалов\4 Работа с файлами\4.4 Работа с json-файлами. Часть 2\4.4.14 Результаты экзамена 🌶️\exam_results.csv', encoding='utf-8') as fl_in:
+    students = DictReader(fl_in)
+    student_name, student_surname, student_exam_score, student_exam_dt, student_email = students.fieldnames
+    for student in students:
+        cur_student_email = student[student_email]
+        students_best_scores_dict.setdefault(cur_student_email, {key: value for key, value in student.items() if key != student_email})
+        if ((int(student[student_exam_score]), datetime.fromisoformat(student[student_exam_dt]))) > (int(students_best_scores_dict[cur_student_email][student_exam_score]), datetime.fromisoformat(students_best_scores_dict[cur_student_email][student_exam_dt])):
+            for key in students_best_scores_dict[cur_student_email]:
+                students_best_scores_dict[cur_student_email][key] = student[key]
+students_best_scores_list = list()
+for cur_student_email in sorted(students_best_scores_dict):
+    cur_student = {student_name: students_best_scores_dict[cur_student_email][student_name],
+                   student_surname: students_best_scores_dict[cur_student_email][student_surname],
+                   'best_score': int(students_best_scores_dict[cur_student_email][student_exam_score]),
+                   student_exam_dt: students_best_scores_dict[cur_student_email][student_exam_dt],
+                   student_email: cur_student_email}
+    students_best_scores_list.append(cur_student)
+with open(r'C:\Users\i.seliverstov\Documents\Ivan\Python-Generation-Courses\3 Курс для профессионалов\4 Работа с файлами\4.4 Работа с json-файлами. Часть 2\4.4.14 Результаты экзамена 🌶️\best_scores.json', 'w', encoding='utf-8') as fl_out:
+    dump(students_best_scores_list, fl_out, indent=3, ensure_ascii=False)
