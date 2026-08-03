@@ -1,0 +1,15 @@
+from json import load
+
+name, is_net_object, operating_company, type_object, adm_area, district, address, seats_count = ('Name', 'IsNetObject', 'OperatingCompany', 'TypeObject', 'AdmArea', 'District', 'Address', 'SeatsCount')
+district_count_objects = dict()
+net_count_objects = dict()
+
+with open(r'C:\Users\i.seliverstov\Documents\Ivan\Python-Generation-Courses\3 Курс для профессионалов\4 Работа с файлами\4.4 Работа с json-файлами. Часть 2\4.4.15 Общественное питание 😥\food_services.json', encoding='utf-8') as fl_in:
+    for object in load(fl_in):
+        district_count_objects[object[district]] = district_count_objects.get(object[district], 0) + 1
+        if object[is_net_object] == 'да':
+            net_count_objects[object[operating_company]] = net_count_objects.get(object[operating_company], 0) + 1
+max_district_count_object = max(district_count_objects.items(), key=lambda district: district[1])
+max_net_count_object = max(net_count_objects.items(), key=lambda net: net[1])
+print(f'{max_district_count_object[0]}: {max_district_count_object[1]}')
+print(f'{max_net_count_object[0]}: {max_net_count_object[1]}')
