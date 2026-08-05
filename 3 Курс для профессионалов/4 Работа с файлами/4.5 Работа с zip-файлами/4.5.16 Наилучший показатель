@@ -1,0 +1,11 @@
+from zipfile import ZipFile
+
+record = (110, '')
+with ZipFile(r'C:\Users\i.seliverstov\Documents\Ivan\Python-Generation-Courses\3 Курс для профессионалов\4 Работа с файлами\4.5 Работа с zip-файлами\test.zip') as fl_zip:
+    for fl in fl_zip.infolist():
+        if not fl.is_dir():
+            compression = (fl.compress_size / fl.file_size) * 100
+            fl_filename = fl.filename
+            if (compression, fl_filename) < record:
+                record = (compression, fl_filename)
+print(record[1].split('/')[-1])

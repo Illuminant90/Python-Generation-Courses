@@ -1,0 +1,9 @@
+from zipfile import ZipFile
+
+count = 0
+with ZipFile(r'C:\Users\i.seliverstov\Documents\Ivan\Python-Generation-Courses\3 Курс для профессионалов\4 Работа с файлами\4.5 Работа с zip-файлами\test.zip') as zip_fl:
+    info = zip_fl.infolist()
+    for fl in info:
+        if not fl.is_dir():
+            count += 1
+print(count)

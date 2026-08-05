@@ -1,0 +1,10 @@
+from zipfile import ZipFile
+
+fl_size = 0
+fl_compress_size = 0
+with ZipFile(r'C:\Users\i.seliverstov\Documents\Ivan\Python-Generation-Courses\3 Курс для профессионалов\4 Работа с файлами\4.5 Работа с zip-файлами\test.zip') as zip_fl:
+    for fl in zip_fl.infolist():
+        fl_size += fl.file_size
+        fl_compress_size += fl.compress_size
+print(f'Объем исходных файлов: {fl_size} байт(а)')
+print(f'Объем сжатых файлов: {fl_compress_size} байт(а)')
