@@ -1,0 +1,14 @@
+from datetime import datetime
+from zipfile import ZipFile
+
+target_dt = datetime.fromisoformat('2021-11-30 14:22:00')
+result = list()
+with ZipFile(r'C:\Users\i.seliverstov\Documents\Ivan\Python-Generation-Courses\3 Курс для профессионалов\4 Работа с файлами\4.5 Работа с zip-файлами\test.zip') as fl_zip:
+    for processed_fl in fl_zip.infolist():
+        if not processed_fl.is_dir():
+            year, month, day, hour, minute, seconds = processed_fl.date_time
+            fl_dt = datetime(year, month, day, hour, minute, seconds)
+            if fl_dt > target_dt:
+                result.append(processed_fl.filename.split('/')[-1])
+result.sort()                
+print(*result, sep='\n')                
