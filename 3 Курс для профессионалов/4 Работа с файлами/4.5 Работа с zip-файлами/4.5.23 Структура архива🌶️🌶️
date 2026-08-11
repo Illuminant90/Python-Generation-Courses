@@ -1,0 +1,33 @@
+from zipfile import ZipFile
+
+
+def convert_bytes_to_usefull(size):
+    fl_size = size
+    count = 0
+    while fl_size > 1024 and count <= 3:
+        fl_size /= 1024
+        count += 1
+    return str(math_round(fl_size)) + ' ' + measures[count]
+
+
+def math_round(num):
+    integer_part = int(num)
+    fractional_part = num - integer_part
+    if fractional_part >= 0.5:
+        return integer_part + 1
+    else:
+        return integer_part
+
+
+single_indent = '  '
+measures = ('B', 'KB', 'MB', 'GB')
+with ZipFile('test.zip') as zip_fl:
+    for line in zip_fl.infolist():
+        if line.is_dir():
+            count_indent = line.filename.count('/') - 1
+            dir_name = line.filename.split('/')[-2]
+            print(f'{single_indent * count_indent}{dir_name}')
+        else:
+            count_indent = line.filename.count('/')
+            fl_name = line.filename.split('/')[-1]
+            print(f'{single_indent * count_indent}{fl_name} {convert_bytes_to_usefull(line.file_size)}')
