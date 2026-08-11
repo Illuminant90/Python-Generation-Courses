@@ -26,8 +26,8 @@ with ZipFile('test.zip') as zip_fl:
         if line.is_dir():
             count_indent = line.filename.count('/') - 1
             dir_name = line.filename.split('/')[-2]
-            print(f'{single_indent * count_indent}{dir_name}')
+            print(single_indent * count_indent, dir_name, sep='')
         else:
             count_indent = line.filename.count('/')
             fl_name = line.filename.split('/')[-1]
-            print(f'{single_indent * count_indent}{fl_name} {convert_bytes_to_usefull(line.file_size)}')
+            print(single_indent * count_indent, fl_name, ' ', convert_bytes_to_usefull(line.file_size), sep='')
