@@ -1,0 +1,13 @@
+from collections import namedtuple
+from datetime import datetime
+from csv import DictReader
+
+dt_pattern = "%d.%m.%Y%H:%M"
+Meeting_Friend = namedtuple('Meeting_Friend', ['surname', 'name', 'dt'], rename=True)
+meeting_friends_list = list()
+with open(r'C:\Users\i.seliverstov\Documents\Ivan\Python-Generation-Courses\3 Курс для профессионалов\6 Дополнительные типы коллекций\6.4 Тип данных namedtuple. Часть 2\meetings.csv', encoding='utf-8') as fl:
+    for meet in DictReader(fl):
+        meeting_friends_list.append(Meeting_Friend._make((meet['surname'], meet['name'], datetime.strptime(meet['meeting_date'] + meet['meeting_time'], dt_pattern))))
+meeting_friends_list.sort(key= lambda meeting_friend: meeting_friend.dt)
+for meeting_friend in meeting_friends_list:
+    print(meeting_friend.surname, meeting_friend.name)

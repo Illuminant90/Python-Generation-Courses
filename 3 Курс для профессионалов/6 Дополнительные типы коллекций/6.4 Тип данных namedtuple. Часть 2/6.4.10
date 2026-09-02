@@ -1,0 +1,9 @@
+from collections import namedtuple
+from pickle import load
+
+Animal = namedtuple('Animal', ['name', 'family', 'sex', 'color'])
+with open('data.pkl', 'rb') as fl_pkl:
+    for animal in load(fl_pkl):
+        for field, param in animal._asdict().items():
+            print(f'{field}: {param}')
+        print()
