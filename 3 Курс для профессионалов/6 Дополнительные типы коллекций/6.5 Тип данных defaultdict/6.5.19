@@ -6,4 +6,5 @@ profit_dict = defaultdict(int)
 
 for profit_source, profit_count in data:
     profit_dict[profit_source] += profit_count
-print(profit_dict)
+for profit_source, profit_count in sorted(profit_dict.items()):
+    print(f'{profit_source}: ${profit_count}')
