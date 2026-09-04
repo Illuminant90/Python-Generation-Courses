@@ -1,0 +1,21 @@
+from collections import defaultdict
+
+def wins(pairs):
+    wins_out = defaultdict(set)
+    for winner, loser in pairs:
+        wins_out[winner].add(loser)
+    return wins_out
+
+result = wins([('Артур', 'Дима'), ('Дима', 'Элина'),
+               ('Артур', 'Тимур'), ('Тимур', 'Анри'),
+               ('Тимур', 'Элина'), ('Элина', 'Тимур'),
+               ('Элина', 'Артур'), ('Анри', 'Илья'),
+               ('Элина', 'Анри'), ('Анри', 'Герман')])
+
+for winner, losers in sorted(result.items()):
+    print(winner, '->', *sorted(losers))
+
+result = wins([('Тимур', 'Артур'), ('Тимур', 'Дима'), ('Дима', 'Артур')])
+
+for losers in result.values():
+    print(type(losers) == set)    
