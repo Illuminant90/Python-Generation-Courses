@@ -1,0 +1,12 @@
+from collections import defaultdict
+
+def best_sender(messages, senders):
+    senders_word_count = defaultdict(int)
+    for sender, message in zip(senders, messages):
+        senders_word_count[sender] += len(message.split())
+    return max(senders_word_count, key=lambda el: (senders_word_count[el], el))
+
+messages = ['How is Stepik for everyone', 'Stepik is useful for practice']
+senders = ['Bob', 'Charlie']
+
+print(best_sender(messages, senders))

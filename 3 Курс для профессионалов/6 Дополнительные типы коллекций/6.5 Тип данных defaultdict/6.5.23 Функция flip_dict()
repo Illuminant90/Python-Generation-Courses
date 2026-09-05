@@ -2,6 +2,10 @@ from collections import defaultdict
 
 def flip_dict(dict_of_lists):
     flip_dict_out = defaultdict(list)
+    for key, value in dict_of_lists.items():
+        for new_key in value:
+            flip_dict_out[new_key].append(key)
+    return flip_dict_out
     
 
 
