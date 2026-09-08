@@ -1,0 +1,9 @@
+from collections import OrderedDict
+
+data = OrderedDict({'Name': 'Брусника', 'IsNetObject': 'да', 'OperatingCompany': 'Брусника', 'TypeObject': 'кафе', 'AdmArea': 'Центральный административный округ', 'District': 'район Арбат', 'Address': 'город Москва, переулок Сивцев Вражек, дом 6/2', 'SeatsCount': '10'})
+new_data = list()
+for dict_key in data:
+    new_data.append((dict_key, data[dict_key]))
+new_data.reverse()
+data = OrderedDict(new_data)
+print(data)
