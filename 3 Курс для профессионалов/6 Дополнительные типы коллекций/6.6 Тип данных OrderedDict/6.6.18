@@ -1,6 +1,14 @@
 from collections import OrderedDict
 
+
 data = OrderedDict({'Name': 'Брусника', 'IsNetObject': 'да', 'OperatingCompany': 'Брусника', 'TypeObject': 'кафе', 'AdmArea': 'Центральный административный округ', 'District': 'район Арбат', 'Address': 'город Москва, переулок Сивцев Вражек, дом 6/2', 'SeatsCount': '10'})
-for dict_key in tuple(data):
-    data.move_to_end(dict_key, last=False)
+new_data = OrderedDict()
+
+trigger = False
+for index in range(len(data)):
+    dict_key, dict_value = data.popitem(last=trigger)
+    new_data[dict_key] = dict_value 
+    trigger = not trigger
+
+data = new_data
 print(data)
