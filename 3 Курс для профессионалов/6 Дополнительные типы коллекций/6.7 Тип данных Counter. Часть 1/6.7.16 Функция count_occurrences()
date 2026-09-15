@@ -1,0 +1,16 @@
+from collections import Counter
+
+def count_occurrences(word, words):
+    return Counter([w.rstrip('!?.,:;') for w in words.lower().split()])[word.lower()]
+
+#Test 1
+word = 'python'
+words = 'Python Conferences python training python events'
+
+print(count_occurrences(word, words))
+
+#Test 2
+word = 'Java'
+words = 'Python C++ C# JavaScript Go Assembler'
+
+print(count_occurrences(word, words))

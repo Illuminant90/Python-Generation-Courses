@@ -1,0 +1,6 @@
+from collections import Counter
+
+shop_list_line = input()
+shop_list_counter = Counter(shop_list_line.split(','))
+for product, count in sorted(shop_list_counter.items()):
+    print(f'{product}: {count}')
