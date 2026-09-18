@@ -1,0 +1,6 @@
+from collections import Counter
+
+with open('/home/ivan/Документы/Python-Generation-Courses/3 Курс для профессионалов/6 Дополнительные типы коллекций/6.7 Тип данных Counter. Часть 1/pythonzen.txt', encoding='utf-8') as fl:
+    letters_count = Counter(filter(str.isalpha, fl.read().lower()))
+for letter, count in sorted(letters_count.items()):
+    print(f'{letter}: {count}')
