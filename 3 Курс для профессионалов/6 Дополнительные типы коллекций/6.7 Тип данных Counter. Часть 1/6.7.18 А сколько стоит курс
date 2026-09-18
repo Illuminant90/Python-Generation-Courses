@@ -1,0 +1,7 @@
+from collections import Counter
+
+shop_list = Counter(input().split(','))
+max_len_line = max(map(len, shop_list))
+for goods, amount in sorted(shop_list.items()):
+    price = sum(map(ord, filter(str.isalpha, goods)))
+    print(f'{goods:{max_len_line}}: {price} UC x {amount} = {price * amount} UC')
