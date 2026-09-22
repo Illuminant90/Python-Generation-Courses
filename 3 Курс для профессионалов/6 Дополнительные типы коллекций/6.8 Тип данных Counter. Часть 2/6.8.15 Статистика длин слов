@@ -1,0 +1,7 @@
+from collections import defaultdict
+
+info = defaultdict(list)
+for word in input().split():
+    info[len(word)].append(word)
+for len_word in sorted(info, key=lambda el: len(info[el])):
+    print(f'Слов длины {len_word}: {len(info[len_word])}')

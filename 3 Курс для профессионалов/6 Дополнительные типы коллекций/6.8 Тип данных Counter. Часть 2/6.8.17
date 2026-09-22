@@ -1,0 +1,10 @@
+from collections import Counter
+
+data = Counter('aksjaskfjsklfjdslkfjajfopewtoieqpwdpqworiiqjskanvmcxbmpewrqopkqwlmdzczmxvmvlnjpjqpkqzxvmbowiqeorewi')
+
+data.__dict__['min_values'] = lambda: [el for el in data.most_common() if el[1] == min(data.values())]
+data.__dict__['max_values'] = lambda: [el for el in data.most_common() if el[1] == max(data.values())]
+
+print(data)
+print(data.max_values())
+print(data.min_values())

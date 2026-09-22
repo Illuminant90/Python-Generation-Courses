@@ -1,0 +1,5 @@
+from collections import Counter
+
+objects = Counter(input().lower().split()).most_common()
+count_less_common = objects[-1][1]
+print(', '.join(sorted([obj[0] for obj in objects if obj[1] == count_less_common])))
