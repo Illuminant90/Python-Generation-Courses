@@ -1,10 +1,7 @@
 from collections import Counter
 
 def print_bar_chart(data, mark):
-    if isinstance(data, list):
-        max_len_line = max(map(len, data))
-    else:
-        max_len_line = 1
+    max_len_line = max(map(len, data))
     for text, count in Counter(data).most_common():
         print(f'{text:{max_len_line}} |{mark * count}')
 
