@@ -1,0 +1,12 @@
+from collections import Counter
+
+def scrabble(symbols, word):
+    return Counter(symbols.lower()) >= Counter(word.lower())
+
+
+#TEST_1
+print(scrabble('bbbbbeeeeegggggggeeeeeekkkkk', 'Beegeek')) # True
+#TEST_2
+print(scrabble('begk', 'beegeek')) # False
+#TEST_3
+print(scrabble('beegeek', 'beegeek')) # True

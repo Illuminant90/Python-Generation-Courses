@@ -1,0 +1,9 @@
+from csv import DictReader
+from collections import Counter
+
+count_emails = list()
+with open(r'C:\Users\i.seliverstov\Documents\Ivan\Python-Generation-Courses\3 Курс для профессионалов\6 Дополнительные типы коллекций\6.8 Тип данных Counter. Часть 2\name_log.csv', encoding='utf-8') as fl_csv:
+    for line in DictReader(fl_csv):
+        count_emails.append(line['email'])
+for email, count_change_username in sorted(Counter(count_emails).most_common()):
+    print(f'{email}: {count_change_username}')
