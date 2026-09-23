@@ -1,0 +1,22 @@
+from collections import Counter
+from csv import DictReader
+from json import load
+
+total_profit = 0
+sell_count = Counter()
+folder = r'C:\Users\i.seliverstov\Documents\Ivan\Python-Generation-Courses\3 Курс для профессионалов\6 Дополнительные типы коллекций\6.8 Тип данных Counter. Часть 2' + '\\'
+for i in range(1, 5):
+    fl_name = 'quarter' + str(i) + '.csv'
+    with open(folder + fl_name, encoding='utf-8') as fl_sells:
+        for line in DictReader(fl_sells):
+            keys = list(line)
+            product = line[keys[0]]
+            qurt_sum = 0
+            for month in keys[1:]:
+                qurt_sum += int(line[month])
+            sell_count.update({product: qurt_sum})
+with open(r'C:\Users\i.seliverstov\Documents\Ivan\Python-Generation-Courses\3 Курс для профессионалов\6 Дополнительные типы коллекций\6.8 Тип данных Counter. Часть 2\prices.json', encoding='utf-8') as fl_prices:
+    prices = load(fl_prices)
+for product, count in sell_count.items():
+    total_profit += prices[product] * count
+print(total_profit)    
