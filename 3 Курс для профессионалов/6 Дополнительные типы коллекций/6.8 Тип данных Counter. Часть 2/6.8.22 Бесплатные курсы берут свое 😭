@@ -1,11 +1,11 @@
 from collections import Counter
 
-books = Counter(input().split())
+books = Counter(map(int,input().split()))
 profit = 0
 n = int(input())
 for _ in range(n):
-    book, price = input().split()
+    book, price = map(int, input().split())
     if book in books:
-        profit += int(price)
-        books = books - Counter({book: 1})        
+        profit += price
+        books -= Counter({book: 1})        
 print(profit)        
