@@ -1,0 +1,25 @@
+from collections import Counter, ChainMap
+
+bread = {'булочка с кунжутом': 15, 'обычная булочка': 10, 'ржаная булочка': 15}
+meat = {'куриный бифштекс': 50, 'говяжий бифштекс': 70, 'рыбный бифштекс': 40}
+sauce = {'сливочно-чесночный': 15, 'кетчуп': 10, 'горчица': 10, 'барбекю': 15, 'чили': 15}
+vegetables = {'лук': 10, 'салат': 15, 'помидор': 15, 'огурцы': 10}
+toppings = {'сыр': 25, 'яйцо': 15, 'бекон': 30}
+ingredients_cost = ChainMap(bread, meat, sauce, vegetables, toppings)
+ingredients = Counter(input().split(','))
+max_len_ingredient = max(map(len, ingredients))
+max_len_line = 0
+price = 0
+for ingredient, value in sorted(ingredients.most_common()):
+    line = f'{ingredient:{max_len_ingredient}} x {value}'
+    len_line = len(line)
+    if len_line > max_len_line:
+        max_len_line = len_line
+    price += ingredients_cost[ingredient] * value
+    print(line)
+line = f'ИТОГ: {price}р'
+len_line = len(line)
+if len_line > max_len_line:
+    max_len_line = len_line    
+print('-' * max_len_line)
+print(line)    

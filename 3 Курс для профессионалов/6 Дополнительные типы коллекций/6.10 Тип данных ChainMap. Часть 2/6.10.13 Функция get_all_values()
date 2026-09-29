@@ -1,0 +1,22 @@
+from collections import ChainMap
+
+
+def get_all_values(chainmap, key):
+    result = set()
+    for cur_dict in chainmap.maps:
+        if key in cur_dict:
+            result.add(cur_dict[key])
+    return result
+
+
+#Test1
+chainmap = ChainMap({'name': 'Arthur'}, {'name': 'Timur'})
+result = get_all_values(chainmap, 'name')
+
+print(*sorted(result)) # Arthur Timur
+
+#Test2
+chainmap = ChainMap({'name': 'Arthur'}, {'name': 'Timur'})
+result = get_all_values(chainmap, 'age')
+
+print(result) # set()

@@ -1,0 +1,5 @@
+from collections import ChainMap
+from json import load
+
+with open(r'C:\Users\i.seliverstov\Documents\Ivan\Python-Generation-Courses\3 Курс для профессионалов\6 Дополнительные типы коллекций\6.9 Тип данных ChainMap. Часть 1\zoo.json', encoding='utf-8') as fl:
+    print(sum(ChainMap(*load(fl)).values()))
