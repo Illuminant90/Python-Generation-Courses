@@ -1,0 +1,27 @@
+from collections import ChainMap
+
+def get_value(chainmap, key, from_left=True):
+    if from_left:
+        return chainmap.get(key)
+    else:
+        for cur_dict in reversed(chainmap.maps):
+            if key in cur_dict:
+                return cur_dict[key]
+        else:
+            return None
+
+
+#Test1
+chainmap = ChainMap({'name': 'Arthur'}, {'name': 'Timur'})
+
+print(get_value(chainmap, 'name')) #Arthur
+
+#Test2
+chainmap = ChainMap({'name': 'Arthur'}, {'name': 'Timur'})
+
+print(get_value(chainmap, 'name', False)) #Timur
+
+#Test3
+chainmap = ChainMap({'name': 'Arthur'}, {'name': 'Timur'})
+
+print(get_value(chainmap, 'age')) #None

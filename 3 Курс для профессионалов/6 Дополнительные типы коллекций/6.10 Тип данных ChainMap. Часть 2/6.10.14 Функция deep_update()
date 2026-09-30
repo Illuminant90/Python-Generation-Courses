@@ -1,0 +1,21 @@
+from collections import ChainMap
+
+def deep_update(chainmap, key, value):
+    for cur_dict in chainmap.maps:
+        if key in cur_dict:
+            cur_dict[key] = value
+            key_in_chainmap = True
+    chainmap.setdefault(key, value)
+
+
+#Test1
+chainmap = ChainMap({'city': 'Moscow'}, {'name': 'Arthur'}, {'name': 'Timur'})
+deep_update(chainmap, 'name', 'Dima')
+
+print(chainmap) #ChainMap({'city': 'Moscow'}, {'name': 'Dima'}, {'name': 'Dima'})
+
+#Test2
+chainmap = ChainMap({'name': 'Arthur'}, {'name': 'Timur'})
+deep_update(chainmap, 'age', 20)
+
+print(chainmap) #ChainMap({'name': 'Arthur', 'age': 20}, {'name': 'Timur'})
