@@ -1,0 +1,8 @@
+from string import ascii_lowercase
+
+abc_in = input()
+messange_in = input()
+
+translate_tbl = str.maketrans(ascii_lowercase, abc_in)
+
+print(messange_in.lower().translate(translate_tbl))
