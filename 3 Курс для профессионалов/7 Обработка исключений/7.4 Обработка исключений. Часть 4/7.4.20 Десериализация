@@ -1,0 +1,9 @@
+from json import load, JSONDecodeError
+
+try:
+    with open(input(), encoding='utf-8') as fl_name:
+        print(load(fl_name))
+except FileNotFoundError:
+    print('Файл не найден')
+except JSONDecodeError:
+    print('Ошибка при десериализации')

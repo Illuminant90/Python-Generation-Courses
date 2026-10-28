@@ -1,0 +1,33 @@
+from sys import stdin
+
+def is_good_password(password):
+    if len(password) < 9:
+        raise LengthError('LengthError')
+    if password == password.upper() or password == password.lower():
+        raise LetterError('LetterError')
+    if not any([str(digit) in password for digit in range(10)]):
+        raise DigitError('DigitError')
+    return True
+
+
+class PasswordError(Exception):
+    pass
+
+class LengthError(PasswordError):
+    pass
+
+class LetterError(PasswordError):
+    pass
+
+class DigitError(PasswordError):
+    pass
+
+first_time_success = False
+for line in stdin:
+    if not first_time_success:
+        try:
+            is_good_password(line.rstrip())
+            first_time_success = True
+            print('Success!')
+        except PasswordError as e:
+            print(e)

@@ -1,0 +1,34 @@
+def get_id(names, name):
+    if not isinstance(name, str):
+        raise TypeError('Имя не является строкой')
+    elif not all((name.isalpha(), name.istitle())):
+        raise ValueError("Имя не является корректным")
+    else:
+        names.append(name)
+        return len(names)
+
+
+#Test1
+names = ['Timur', 'Anri', 'Dima']
+name = 'Arthur'
+
+print(get_id(names, name)) #4
+
+#Test2
+names = ['Timur', 'Anri', 'Dima', 'Arthur']
+name = 'Ruslan1337'
+
+try:
+    print(get_id(names, name))
+except ValueError as e:
+    print(e) #Имя не является корректным
+
+
+#Test3
+names = ['Timur', 'Anri', 'Dima', 'Arthur', 'Ruslan']
+name = ['E', 'd', 'u', 'a', 'r', 'd']
+
+try:
+    print(get_id(names, name))
+except TypeError as e:
+    print(e) #Имя не является строкой
