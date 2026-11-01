@@ -1,0 +1,14 @@
+def traffic(n):
+    if n > 0:
+        print('Не парковаться')
+        traffic(n - 1)
+
+
+#Test1
+traffic(3)
+print()
+#Test2
+traffic(5)
+print()
+#Test3
+traffic(0)

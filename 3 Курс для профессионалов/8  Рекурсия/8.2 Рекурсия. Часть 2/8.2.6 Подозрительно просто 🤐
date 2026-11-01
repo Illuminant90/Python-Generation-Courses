@@ -1,0 +1,7 @@
+def digit_counter(start_digit=1, stop_digit=100):
+    if stop_digit >= start_digit:
+        print(start_digit)
+        digit_counter(start_digit + 1)
+
+
+digit_counter()
