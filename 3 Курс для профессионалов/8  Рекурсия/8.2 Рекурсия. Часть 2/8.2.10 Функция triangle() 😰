@@ -1,0 +1,12 @@
+def triangle(h):
+    def rec(step):
+        if step <= h:
+            print('*' * step)
+            rec(step + 1)
+    rec(1)
+
+
+#Test1
+triangle(3)
+#Test2
+triangle(5)
