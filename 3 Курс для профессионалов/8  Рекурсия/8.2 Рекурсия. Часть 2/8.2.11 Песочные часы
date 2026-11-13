@@ -1,0 +1,10 @@
+def sand_clock(n, digit=1):
+    digit_count = 4 * (n - digit + 1)
+    width = n * 4
+    if digit < n:
+        print((str(digit) * digit_count).center(width))
+        sand_clock(n, digit + 1)
+    print((str(digit) * digit_count).center(width))
+    
+
+sand_clock(4)

@@ -1,0 +1,6 @@
+def reverse_print(n):
+    if n != 0:
+        reverse_print(int(input()))
+    print(n)
+        
+reverse_print(int(input()))

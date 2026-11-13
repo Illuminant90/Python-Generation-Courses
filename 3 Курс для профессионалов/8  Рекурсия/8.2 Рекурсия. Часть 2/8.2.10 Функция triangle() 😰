@@ -1,9 +1,7 @@
 def triangle(h):
-    def rec(step):
-        if step <= h:
-            print('*' * step)
-            rec(step + 1)
-    rec(1)
+    if h > 1:
+        triangle(h - 1)
+    print('*' * h)
 
 
 #Test1
