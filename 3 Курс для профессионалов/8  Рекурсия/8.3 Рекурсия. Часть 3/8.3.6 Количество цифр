@@ -1,0 +1,12 @@
+def count_digits(num):
+    if not str(num):
+        return 0
+    return str(num) + count_digits(int(str(num)[1:]))
+
+
+#Test1
+print(count_digits(50)) #2
+#Test2
+print(count_digits(17488)) #5
+#Test3
+print(count_digits(7)) #1
