@@ -1,0 +1,13 @@
+def sum_digit(num):
+    if num == 0:
+        return 0
+    else:
+        return num % 10 + sum_digit(num // 10)
+
+
+#Test1
+print(sum_digit(25)) # 7
+#Test2
+print(sum_digit(10000)) # 1
+#Test3
+print(sum_digit(12345)) # 15
