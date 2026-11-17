@@ -1,0 +1,12 @@
+def number_of_frogs(year):
+    if year == 1:
+        return 77
+    return 3 * (number_of_frogs(year - 1) - 30)
+
+
+#Test1
+print(number_of_frogs(2)) #141
+#Test2
+print(number_of_frogs(10)) #629901
+#Test3
+print(number_of_frogs(1)) #77
